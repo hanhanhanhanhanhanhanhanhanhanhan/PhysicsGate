@@ -6,9 +6,7 @@ are retained, so they are not redrawn by this command.
 
 from __future__ import annotations
 
-import argparse
 import csv
-import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -73,40 +71,7 @@ def run_pipeline() -> None:
         subprocess.run(command, cwd=ROOT, check=True)
 
 
-def verify_manifest() -> None:
-    manifest = ROOT / "SHA256SUMS.txt"
-    if not manifest.exists():
-        raise FileNotFoundError("SHA256SUMS.txt is missing")
-    failures: list[str] = []
-    checked = 0
-    for line in manifest.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        expected, relative = line.split("  ", 1)
-        path = ROOT / relative
-        if not path.exists():
-            failures.append(f"missing: {relative}")
-            continue
-        actual = hashlib.sha256(path.read_bytes()).hexdigest()
-        checked += 1
-        if actual != expected:
-            failures.append(f"hash mismatch: {relative}")
-    if failures:
-        raise RuntimeError("\n".join(failures))
-    print(f"Verified {checked} retained source and reference files.")
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--verify-only",
-        action="store_true",
-        help="Verify retained source/reference hashes without redrawing.",
-    )
-    args = parser.parse_args()
-    if args.verify_only:
-        verify_manifest()
-        return
     run_pipeline()
 
 

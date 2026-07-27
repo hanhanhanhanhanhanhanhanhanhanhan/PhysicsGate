@@ -7,6 +7,4 @@ data/raw/
 data/processed/
 results/figures/*_reproduced.png
 results/figures/*.pdf
-outputs/**/*.png
-outputs/**/*.svg
-outputs/**/*.pdf
+results/refit/

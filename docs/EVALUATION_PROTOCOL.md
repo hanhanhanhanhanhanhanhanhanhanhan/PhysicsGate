@@ -11,7 +11,7 @@ All 16 endpoint-route combinations compare the same six methods:
 5. PhysResStack;
 6. PhysicsGate.
 
-The principal metrics are RMSE, MAE and \(R^2\). Physics residuals and gate
+The principal metrics are RMSE, MAE and $R^2$. Physics residuals and gate
 diagnostics are retained where defined.
 
 ## Split designs

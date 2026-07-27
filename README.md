@@ -8,40 +8,41 @@ unreliable because auxiliary-model errors propagate through the equation.
 
 ## Method
 
-For a target property \(A\), PhysicsGate combines a direct prediction
-\(\hat A_D\) and a physics-anchored residual prediction \(\hat A_R\):
+For a target property $A$, PhysicsGate combines a direct prediction
+$\hat{A}_{D}$ and a physics-anchored residual prediction
+$\hat{A}_{R}$:
 
-\[
-\hat A_{\mathrm{PG}}
-= (1-w)\hat A_D+w\hat A_R
-= \hat A_D+w(\hat A_R-\hat A_D),
+$$
+\hat{A}_{\mathrm{PG}}
+= (1-w)\hat{A}_{D}+w\hat{A}_{R}
+= \hat{A}_{D}+w\left(\hat{A}_{R}-\hat{A}_{D}\right),
 \qquad 0\leq w\leq1.
-\]
+$$
 
 The residual branch first corrects the equation-derived prediction:
 
-\[
-\hat A_R=\hat A_P+\hat r,
-\]
+$$
+\hat{A}_{R}=\hat{A}_{P}+\hat{r}.
+$$
 
-where \(\hat A_P\) is calculated from independently predicted auxiliary
-properties and \(\hat r\) is learned from training-side out-of-fold (OOF)
+Here, $\hat{A}_{P}$ is calculated from independently predicted auxiliary
+properties and $\hat{r}$ is learned from training-side out-of-fold (OOF)
 physics residuals. The sample-specific weight is
 
-\[
-w=\operatorname{sigmoid}\{g(R_1,R_2,R_3)\},
-\]
+$$
+w=\operatorname{sigmoid}\left[g(R_1,R_2,R_3)\right].
+$$
 
-where \(g\) is a standardized ridge model and:
+Here, $g$ is a standardized ridge model and:
 
-- \(R_1\): disagreement between the direct and residual branches;
-- \(R_2\): risk that the physics prediction lies outside the training range;
-- \(R_3\): uncertainty propagated through the physical equation.
+- $R_1$: disagreement between the direct and residual branches;
+- $R_2$: risk that the physics prediction lies outside the training range;
+- $R_3$: uncertainty propagated through the physical equation.
 
 The gate therefore learns when a physics-anchored correction is useful and
 when the direct model should be retained.
 
-![PhysicsGate framework](results/figures/Figure1b-g.png)
+![PhysicsGate framework](results/figures/Figure1.png)
 
 ## Installation
 
@@ -130,9 +131,9 @@ The study evaluates PhysicsGate for four domains:
 | Dataset | Domain | Physical relationship |
 |---|---|---|
 | SSE | Solid-state electrolytes | Arrhenius conductivity relation |
-| ESTM | Thermoelectric materials | \(ZT=S^2\sigma T/\kappa\) |
-| LMB | Liquid-metal batteries | \(E_d=QV/m=DE/m\) |
-| PV | Photovoltaic devices | \(\mathrm{PCE}=V_{OC}J_{SC}\mathrm{FF}\) |
+| ESTM | Thermoelectric materials | $ZT=S^2\sigma T/\kappa$ |
+| LMB | Liquid-metal batteries | $E_d=QV/m=DE/m$ |
+| PV | Photovoltaic devices | $\mathrm{PCE}=V_{OC}J_{SC}\mathrm{FF}$ |
 
 The benchmark reports Direct, Physics-only, Residual-only, Ordinary stacking,
 PhysResStack and PhysicsGate under matched data splits and preprocessing.

@@ -664,7 +664,7 @@ def main() -> None:
     place_panel_labels(fig, [ax_a, ax_b, ax_c, ax_d])
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    for base in (RESULTS_DIR / "Fig4_PhysicsGate_mechanism",):
+    for base in (RESULTS_DIR / "Figure4",):
         fig.savefig(base.with_suffix(".svg"), bbox_inches="tight")
         fig.savefig(base.with_suffix(".png"), dpi=300, bbox_inches="tight")
     plt.close(fig)

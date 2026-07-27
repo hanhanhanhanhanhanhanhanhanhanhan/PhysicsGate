@@ -295,7 +295,7 @@ def main() -> None:
     add_encoding_legend(axes[0])
     place_panel_labels(figure, axes)
     RESULTS.mkdir(parents=True, exist_ok=True)
-    for stem in (RESULTS / "FigureS3_stabilization_sensitivity",):
+    for stem in (RESULTS / "FigureS3",):
         figure.savefig(stem.with_suffix(".svg"), bbox_inches="tight")
         figure.savefig(stem.with_suffix(".png"), dpi=300, bbox_inches="tight")
     plt.close(figure)

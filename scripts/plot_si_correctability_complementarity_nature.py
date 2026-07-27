@@ -341,7 +341,7 @@ def main() -> None:
     place_panel_labels(figure, axes)
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    stems = [RESULTS_DIR / "FigureS2_correctability_complementarity"]
+    stems = [RESULTS_DIR / "FigureS2"]
     for stem in stems:
         figure.savefig(stem.with_suffix(".svg"), bbox_inches="tight")
         figure.savefig(stem.with_suffix(".png"), dpi=300, bbox_inches="tight")

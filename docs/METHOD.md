@@ -1,15 +1,15 @@
 # PhysicsGate method
 
-For target \(A\), the retained two-branch gate combines the direct prediction
+For target $A$, the retained two-branch gate combines the direct prediction
 and the physics-anchored residual prediction:
 
-\[
-\hat A_{\mathrm{gate}}
-= \hat A_{\mathrm{D}}
-+ w\left(\hat A_{\mathrm{R}}-\hat A_{\mathrm{D}}\right),
+$$
+\hat{A}_{\mathrm{gate}}
+= \hat{A}_{\mathrm{D}}
++ w\left(\hat{A}_{\mathrm{R}}-\hat{A}_{\mathrm{D}}\right),
 \qquad
-w = \operatorname{sigmoid}\{g(R_1,R_2,R_3)\}.
-\]
+w = \operatorname{sigmoid}\left[g(R_1,R_2,R_3)\right].
+$$
 
 `g` is a standardized ridge regressor. Its training target is the clipped
 sample-wise weight that minimizes squared error between the two OOF branches.

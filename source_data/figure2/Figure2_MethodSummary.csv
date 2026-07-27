@@ -1,0 +1,7 @@
+﻿"method","macro_average_rank","rank_1_count","top_2_count","target_count"
+"PhysicsGate","1.0625","15","16","16"
+"PhysResStack","3.0625","0","6","16"
+"Residual-only","3.375","0","5","16"
+"Direct","3.9375","0","3","16"
+"Ordinary stacking","4.25","1","1","16"
+"Physics-only","5.3125","0","1","16"

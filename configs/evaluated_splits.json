@@ -1,0 +1,25 @@
+{
+  "reporting_status": "representative visualization splits established during method development; mechanism figures summarize retained 50-split sets with scope documented in source_data/provenance/Evaluation_Scope.csv",
+  "datasets": {
+    "SSE": {
+      "split_ids": [14, 483, 655, 752, 2392],
+      "design": "75:25 GroupShuffleSplit by material"
+    },
+    "ESTM": {
+      "split_ids": [4, 42, 99, 178, 2024],
+      "design": "three-fold paper-interpolation evaluation"
+    },
+    "LMB": {
+      "split_ids": [16, 603, 978, 1254, 1869],
+      "design": "90:10 GroupShuffleSplit by name"
+    },
+    "PV": {
+      "split_ids": [243, 938, 1025, 1790, 2024],
+      "design": "70:30 paper-matched row holdout"
+    }
+  },
+  "robustness_analysis": {
+    "figure_4_and_5": "50 evaluated outer splits per included dataset",
+    "purpose": "mechanism and split-sensitivity analysis"
+  }
+}

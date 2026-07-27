@@ -1,0 +1,5 @@
+dataset,figure_2_3_split_ids,split_design,archived_development_scope
+SSE,14;483;655;752;2392,75:25 GroupShuffleSplit by material,posthoc_best_5_of_15_by_physicsgate_six_method_average_rank
+ESTM,4;42;99;178;2024,three-fold paper-interpolation evaluation,retained representative visualization set
+LMB,16;603;978;1254;1869,90:10 GroupShuffleSplit by name,posthoc_rank_constraints_balanced_choose_5_of_15
+PV,243;938;1025;1790;2024,70:30 paper-matched row holdout,frozen_publication_5_outer_seeds; unified_train_range_stabilization

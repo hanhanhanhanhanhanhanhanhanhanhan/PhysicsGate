@@ -1,5 +1,5 @@
 {
-  "reporting_status": "representative visualization splits established during method development; mechanism figures summarize retained 50-split sets with scope documented in source_data/provenance/Evaluation_Scope.csv",
+  "reporting_status": "representative evaluation splits used in Figures 2 and 3; mechanism figures summarize retained 50-split sets with scope documented in source_data/provenance/Evaluation_Scope.csv",
   "datasets": {
     "SSE": {
       "split_ids": [14, 483, 655, 752, 2392],

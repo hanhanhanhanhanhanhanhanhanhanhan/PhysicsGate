@@ -110,7 +110,7 @@ The evaluated domains and equations are:
 |---|---|---|
 | SSE | Solid-state electrolytes | Arrhenius conductivity relation |
 | ESTM | Thermoelectric materials | ZT = S<sup>2</sup>&sigma;T/&kappa; |
-| LMB | Liquid-metal batteries | E<sub>d</sub> = QV/m = DE/m |
+| LMB | Liquid metal batteries | E<sub>d</sub> = QV/m = DE/m |
 | PV | Photovoltaic devices | PCE = V<sub>OC</sub>J<sub>SC</sub>FF |
 
 All targets compare Direct, Physics-only, Residual-only, Ordinary stacking,

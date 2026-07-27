@@ -11,7 +11,7 @@ unused detailed tables are excluded.
 | Figure 2 | `figure2/Figure2_RankMatrix.csv`; `figure2/Figure2_MethodSummary.csv` | The 16 endpoint-route rows, six within-row ranks, macro-average rank and rank-count summaries used by the Origin project. |
 | Figure 3 | `figure3/Figure3_PhysicsInformed.csv`; `figure3/Figure3_Ensemble.csv` | Origin-ready point estimates, asymmetric intervals, clipping flags and inset coordinates for the two pathways. Insets are subsets of these same worksheets. |
 | Figure 4 | four CSV files in `figure4/` | Direct inputs for panels a-d of the ESTM/PV mechanism figure. |
-| Figure 5 | three CSV files in `figure5/` | Split-level diagnostics, target summaries and contextual literature-reported Direct $R^2$ values. |
+| Figure 5 | three CSV files in `figure5/` | Split-level diagnostics, target summaries and contextual literature-reported Direct R<sup>2</sup> values. |
 | Figure S1 | four CSV files in `figureS1/` | Direct inputs for the SSE/LMB mechanism figure. |
 | Figure S2 | two CSV files in `figureS2/` | Split-level and target-level correctability/complementarity diagnostics. |
 | Figure S3 | two CSV files in `figureS3/` | Paired split-level and target-level stabilization sensitivity. |
@@ -25,7 +25,7 @@ Figures 4, 5 and S1-S3 can be redrawn with `python reproduce.py`.
 
 - Figure 2 ranks use 1 = best and 6 = worst within each endpoint-route row.
 - Figure 3 and mechanism gains use
-  $G=\log_2(\mathrm{RMSE}_{Direct}/\mathrm{RMSE}_{method})$.
+  `G = log2(RMSE_Direct / RMSE_method)`.
 - `XErrMinus` and `XErrPlus` are positive asymmetric distances from `X`.
 - `MainPlotX*` fields contain the displayed/clipped coordinates; `X*` fields
   retain the underlying coordinates used by zoomed insets and annotations.

@@ -75,7 +75,7 @@ prediction = gate.predict(
 All gate-training predictions must be generated out of fold from training
 data.
 
-## Reproduce the Paper Figures
+## Paper Figures and Tables
 
 Figures 1-3 are retained with their plotted CSV data. Rebuild Figures 4-5 and
 S1-S3 with:
@@ -83,6 +83,13 @@ S1-S3 with:
 ```bash
 python reproduce.py
 ```
+
+The manuscript tables are in [`results/tables`](results/tables):
+
+- `Table1.csv`: benchmark map used in the main text;
+- `TableS1.csv`-`TableS8.csv`: provenance, equations, architectures, complete
+  metrics, paired gains, mechanism diagnostics, literature context and
+  stabilization sensitivity.
 
 Run the core tests with:
 

@@ -34,3 +34,9 @@ Figures 4, 5 and S1-S3 can be redrawn with `python reproduce.py`.
 
 The split identifiers and their reporting status are documented separately in
 `configs/evaluated_splits.json` and `provenance/Evaluation_Scope.csv`.
+
+## Manuscript tables
+
+The nonredundant manuscript tables are stored in `results/tables/`. Figure 4
+and Figure S1 statistics remain here as source data rather than being repeated
+as separate supplementary tables.

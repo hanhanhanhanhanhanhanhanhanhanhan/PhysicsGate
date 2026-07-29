@@ -1,0 +1,5 @@
+﻿Dataset / domain,Records,Physical relationship,Target endpoints,Evaluation
+SSE / solid-state ionic conductors,867 (846 complete for Ea and ln(sigma_0)),ln(sigma_T) = ln(sigma_0) - Ea/(k_B T),Ea; ln(sigma_0); ln(sigma_T),75:25 composition-level split
+ESTM / thermoelectric materials,"5,186",ZT = S^2 sigma T / kappa,Seebeck coefficient; ZT; log10 electrical conductivity; log10 thermal conductivity,Three-fold paper-interpolation evaluation
+LMB / liquid metal battery cells,"2,158",E_d = Q V / m = DE / m,E_d (DE/m); DE; E_d (QV/m); Q; V,90:10 composition-level split
+PV / photovoltaic devices,"27,178",PCE = V_OC x J_SC x FF,FF; J_SC; PCE; V_OC,70:30 paper-matched row holdout

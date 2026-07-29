@@ -115,6 +115,13 @@ LMB_TARGETS_RAW = {
     "Discharge Energy(Wh)": "discharge_energy_wh",
 }
 LMB_SHEETS = ("Original data", "Firstly extended data", "Secondly extended data")
+LMB_REPLACEMENT_CHARACTER_ALIASES = {
+    "\ufffd": "lambda",
+    "\ufffd(COVALENT)": "lambda(COVALENT)",
+    "Cathode melting point(\ufffd)": "Cathode melting point(c)",
+    "Salt melting point(\ufffd)": "Salt melting point(c)",
+    "Opretaing temperature(\ufffd)": "Opretaing temperature(c)",
+}
 
 
 def _safe_name(value: object) -> str:
@@ -123,6 +130,8 @@ def _safe_name(value: object) -> str:
         "σ": "sigma",
         "娄脣": "lambda",
         "隆忙": "c",
+        "λ": "lambda",
+        "℃": "c",
         "%": "percent",
     }
     for old, new in replacements.items():
@@ -304,7 +313,7 @@ def preprocess_estm(input_path: str | Path, output_path: str | Path) -> tuple[Pa
     frame["log10_thermal_conductivity"] = np.log10(kappa.loc[rows].where(kappa.loc[rows] > 0))
     s_v = frame["seebeck_uV_per_K"] * 1e-6
     frame["ZT"] = (
-        s_v.square()
+        s_v.pow(2)
         * np.power(10.0, frame["log10_electrical_conductivity"])
         * frame["temperature_K"]
         / np.power(10.0, frame["log10_thermal_conductivity"])
@@ -352,18 +361,20 @@ def preprocess_pv(input_path: str | Path, output_path: str | Path) -> tuple[Path
     if missing:
         raise ValueError(f"PV dataset is missing columns: {missing}")
     selected = raw.loc[:, required].copy()
+    selected.insert(0, "raw_row_index", raw.index.to_numpy())
     selected = selected.dropna(subset=list(PV_TARGETS_RAW.values()))
     unknown = selected.astype(str).apply(
         lambda column: column.str.contains(
             r"Unknown|unkown|unknown|None|none", regex=True, na=False
         )
     )
-    selected = selected.loc[~unknown.any(axis=1)].drop_duplicates().copy()
+    selected = selected.loc[~unknown.any(axis=1)].copy()
     pce = pd.to_numeric(selected["JV_default_PCE"], errors="coerce")
     selected = selected.loc[pce.between(0, 25)].copy()
 
     frame = pd.DataFrame(
         {
+            "raw_row_index": selected["raw_row_index"].astype(int),
             "ref_doi_number": selected["Ref_DOI_number"].astype(str),
         },
         index=selected.index,
@@ -410,7 +421,14 @@ def preprocess_lmb(input_path: str | Path, output_path: str | Path) -> tuple[Pat
         [pd.read_excel(workbook, sheet_name=sheet) for sheet in LMB_SHEETS],
         ignore_index=True,
     )
-    raw = raw.rename(columns={column: _safe_name(column) for column in raw.columns})
+    raw = raw.rename(
+        columns={
+            column: _safe_name(
+                LMB_REPLACEMENT_CHARACTER_ALIASES.get(str(column), column)
+            )
+            for column in raw.columns
+        }
+    )
     features = [_safe_name(column) for column in LMB_FEATURES_RAW]
     targets = list(LMB_TARGETS_RAW.values())
     target_map = {_safe_name(raw_name): safe for raw_name, safe in LMB_TARGETS_RAW.items()}

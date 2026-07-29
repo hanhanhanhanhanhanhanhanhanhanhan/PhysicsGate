@@ -1,0 +1,17 @@
+﻿Dataset,Target endpoint,Route,Direction,Physics-only prediction,Predicted auxiliaries,Scale/unit note,Safeguard
+SSE,Ea,Arrhenius inverse,Inverse,Ea_phys = k_B T [ln(sigma_0)_D - ln(sigma_T)_D],ln(sigma_0)_D; ln(sigma_T)_D,k_B = 8.617333262e-5 eV K^-1,Positive measured T; predicted auxiliaries only
+SSE,ln(sigma_0),Arrhenius inverse,Inverse,ln(sigma_0)_phys = ln(sigma_T)_D + Ea_D/(k_B T),ln(sigma_T)_D; Ea_D,k_B = 8.617333262e-5 eV K^-1,Positive measured T; predicted auxiliaries only
+SSE,ln(sigma_T),Arrhenius forward,Forward,ln(sigma_T)_phys = ln(sigma_0)_D - Ea_D/(k_B T),ln(sigma_0)_D; Ea_D,k_B = 8.617333262e-5 eV K^-1,Positive measured T; predicted auxiliaries only
+ESTM,Seebeck coefficient,ZT inverse,Inverse,S_phys = sign(S_D) 1e6 sqrt[ZT_D 10^(logkappa_D) / (10^(logsigma_D) T)],ZT_D; logsigma_D; logkappa_D,S returned in microvolt K^-1,Positive floors inside square root; outer-train target range
+ESTM,ZT,ZT forward,Forward,ZT_phys = (S_D 1e-6)^2 10^(logsigma_D) T / 10^(logkappa_D),S_D; logsigma_D; logkappa_D,S converted from microvolt to volt K^-1,Positive conductivity floor; forward prediction unclipped
+ESTM,log10 electrical conductivity,ZT inverse,Inverse,logsigma_phys = log10[ZT_D 10^(logkappa_D) / ((S_D 1e-6)^2 T)],ZT_D; S_D; logkappa_D,Base-10 logarithm,Positive denominator floor; outer-train target range
+ESTM,log10 thermal conductivity,ZT inverse,Inverse,logkappa_phys = log10[(S_D 1e-6)^2 10^(logsigma_D) T / ZT_D],ZT_D; S_D; logsigma_D,Base-10 logarithm,Positive ZT floor; outer-train target range
+LMB,Energy density,DE-ED,Inverse,ED_phys = DE_D / mass,Discharge energy_D; mass,ED in Wh kg^-1,Positive mass floor; predicted auxiliary only
+LMB,Discharge energy,DE-DE,Forward,DE_phys = ED_D x mass,Energy density_D; mass,DE in Wh,Predicted auxiliary only
+LMB,Energy density,VC-ED,Forward,ED_phys = Q_D x V_D / mass,Capacity_D; voltage_D; mass,ED in Wh kg^-1,Positive mass floor; predicted auxiliaries only
+LMB,Discharge capacity,VC-C,Inverse,Q_phys = ED_D x mass / V_D,Energy density_D; voltage_D; mass,Q in Ah,Positive voltage floor; predicted auxiliaries only
+LMB,Normal discharge voltage,VC-V,Inverse,V_phys = ED_D x mass / Q_D,Energy density_D; capacity_D; mass,V in volt,Positive capacity floor; predicted auxiliaries only
+PV,FF,PCE inverse,Inverse,"FF_phys = PCE_D / (V_OC,D x J_SC,D)","PCE_D; V_OC,D; J_SC,D",FF represented as a fraction,Denominator floor; outer-train target range
+PV,J_SC,PCE inverse,Inverse,"J_SC,phys = PCE_D / (V_OC,D x FF_D)","PCE_D; V_OC,D; FF_D",J_SC in mA cm^-2,Denominator floor; outer-train target range
+PV,PCE,PCE forward,Forward,"PCE_phys = V_OC,D x J_SC,D x FF_D","V_OC,D; J_SC,D; FF_D",PCE in percent under the retained unit convention,Forward prediction unclipped
+PV,V_OC,PCE inverse,Inverse,"V_OC,phys = PCE_D / (J_SC,D x FF_D)","PCE_D; J_SC,D; FF_D",V_OC in volt,Denominator floor; outer-train target range

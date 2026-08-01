@@ -263,7 +263,7 @@ def draw_weight_panel(
     ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0])
     ax.set_yticks(range(8))
     ax.set_yticklabels(TARGET_LABELS[::-1])
-    ax.set_xlabel(r"Gate weight on residual branch, $w$")
+    ax.set_xlabel(r"Weight assigned to Residual-only, $w$")
     centered_title(
         ax,
         "Target-dependent allocation",

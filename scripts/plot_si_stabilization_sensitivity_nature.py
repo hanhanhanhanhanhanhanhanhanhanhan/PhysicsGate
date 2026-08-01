@@ -69,7 +69,7 @@ PANELS = (
     {
         "letter": "b",
         "method": "Residual-only",
-        "title": "Residual branch",
+        "title": "Residual-only",
         "xlim": (-0.28, 6.5),
         "xticks": [0, 2, 4, 6],
     },

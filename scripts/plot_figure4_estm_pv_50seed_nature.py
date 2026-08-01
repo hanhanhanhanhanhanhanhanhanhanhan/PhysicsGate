@@ -132,7 +132,7 @@ def place_panel_labels(fig: plt.Figure, axes: list[plt.Axes]) -> None:
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     inverse = fig.transFigure.inverted()
-    for index, ax in enumerate(axes):
+    for ax in axes:
         label = getattr(ax, "_physicsgate_panel_label", None)
         if not label:
             continue
@@ -142,16 +142,15 @@ def place_panel_labels(fig: plt.Figure, axes: list[plt.Axes]) -> None:
             for tick in ax.get_yticklabels()
             if tick.get_visible() and tick.get_text()
         )
+        left_edges.extend(
+            tick.get_window_extent(renderer).x0
+            for tick in ax.get_xticklabels()
+            if tick.get_visible() and tick.get_text()
+        )
         if ax.yaxis.label.get_visible() and ax.yaxis.label.get_text():
             left_edges.append(ax.yaxis.label.get_window_extent(renderer).x0)
         title_bbox = ax.title.get_window_extent(renderer)
-        if index == 0:
-            x_left = inverse.transform((min(left_edges), title_bbox.y0))[0]
-        else:
-            axes_left = inverse.transform(
-                (ax.get_window_extent(renderer).x0, title_bbox.y0)
-            )[0]
-            x_left = axes_left - 0.020
+        x_left = inverse.transform((min(left_edges), title_bbox.y0))[0]
         title_center_y = inverse.transform(
             (title_bbox.x0, (title_bbox.y0 + title_bbox.y1) / 2.0)
         )[1]
@@ -159,7 +158,7 @@ def place_panel_labels(fig: plt.Figure, axes: list[plt.Axes]) -> None:
             x_left,
             title_center_y,
             label,
-            fontsize=FONT_PANEL,
+            fontsize=12.0,
             fontweight="bold",
             ha="left",
             va="center",

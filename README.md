@@ -34,9 +34,12 @@ This is a sigmoid transformation, where *g* is a standardized ridge model and:
 
 - R<sub>1</sub>: disagreement between the direct and residual branches;
 - R<sub>2</sub>: risk that the physics prediction lies outside the training range;
-- R<sub>3</sub>: target-normalized propagation of training-side OOF auxiliary
-  RMSE estimates through the physical equation. It is an empirical error proxy,
-  not a calibrated predictive uncertainty.
+- R<sub>3</sub>: target-normalized first-order propagation of training-side OOF
+  auxiliary RMSE estimates through the physical equation. Local sensitivities
+  use central finite differences with
+  `delta = max(1e-6, 1e-4 * abs(auxiliary prediction))`; LMB routes use analytic
+  derivatives. It is an empirical error proxy, not a calibrated predictive
+  uncertainty.
 
 ![PhysicsGate framework](results/figures/Figure1.png)
 

@@ -31,6 +31,9 @@ from .gate import PhysicsGate, reliability_features
 
 
 EPS = 1e-12
+ESTM_POSITIVE_FLOOR = 1e-300
+FINITE_DIFFERENCE_ABSOLUTE_STEP = 1e-6
+FINITE_DIFFERENCE_RELATIVE_STEP = 1e-4
 METHODS = (
     "Direct",
     "Physics-only",
@@ -282,42 +285,78 @@ def _physics(
         return np.asarray(result, dtype=float)
 
     if dataset == "ESTM":
-        T = _positive(context["temperature_K"].to_numpy())
+        T = _positive(context["temperature_K"].to_numpy(), floor=EPS)
         if target == "ZT":
             S = predictions["seebeck_uV_per_K"] * 1e-6
+            sigma = np.power(
+                10.0,
+                np.clip(predictions["log10_electrical_conductivity"], -30.0, 30.0),
+            )
+            kappa = _positive(
+                np.power(
+                    10.0,
+                    np.clip(predictions["log10_thermal_conductivity"], -30.0, 30.0),
+                ),
+                floor=ESTM_POSITIVE_FLOOR,
+            )
             result = (
                 S**2
-                * np.power(10.0, predictions["log10_electrical_conductivity"])
+                * sigma
                 * T
-                / _positive(np.power(10.0, predictions["log10_thermal_conductivity"]))
+                / kappa
             )
             return np.asarray(result, dtype=float)
         if target == "seebeck_uV_per_K":
+            sigma = _positive(
+                np.power(
+                    10.0,
+                    np.clip(predictions["log10_electrical_conductivity"], -30.0, 30.0),
+                ),
+                floor=ESTM_POSITIVE_FLOOR,
+            )
+            kappa = _positive(
+                np.power(
+                    10.0,
+                    np.clip(predictions["log10_thermal_conductivity"], -30.0, 30.0),
+                ),
+                floor=ESTM_POSITIVE_FLOOR,
+            )
             magnitude = np.sqrt(
-                _positive(predictions["ZT"])
-                * np.power(10.0, predictions["log10_thermal_conductivity"])
-                / _positive(
-                    np.power(10.0, predictions["log10_electrical_conductivity"]) * T
-                )
+                _positive(predictions["ZT"], floor=ESTM_POSITIVE_FLOOR)
+                * kappa
+                / (sigma * T)
             )
-            result = np.sign(direct_target) * magnitude * 1e6
+            sign = np.sign(direct_target)
+            sign[sign == 0.0] = 1.0
+            result = sign * magnitude * 1e6
         elif target == "log10_electrical_conductivity":
-            S = _positive(np.abs(predictions["seebeck_uV_per_K"]) * 1e-6)
-            sigma = (
-                _positive(predictions["ZT"])
-                * np.power(10.0, predictions["log10_thermal_conductivity"])
-                / _positive(S**2 * T)
+            S = predictions["seebeck_uV_per_K"] * 1e-6
+            kappa = _positive(
+                np.power(
+                    10.0,
+                    np.clip(predictions["log10_thermal_conductivity"], -30.0, 30.0),
+                ),
+                floor=ESTM_POSITIVE_FLOOR,
             )
-            result = np.log10(_positive(sigma))
+            sigma = (
+                _positive(predictions["ZT"], floor=ESTM_POSITIVE_FLOOR)
+                * kappa
+                / (_positive(S**2, floor=ESTM_POSITIVE_FLOOR) * T)
+            )
+            result = np.log10(_positive(sigma, floor=ESTM_POSITIVE_FLOOR))
         else:
-            S = np.abs(predictions["seebeck_uV_per_K"]) * 1e-6
+            S = predictions["seebeck_uV_per_K"] * 1e-6
+            sigma = np.power(
+                10.0,
+                np.clip(predictions["log10_electrical_conductivity"], -30.0, 30.0),
+            )
             kappa = (
                 S**2
-                * np.power(10.0, predictions["log10_electrical_conductivity"])
+                * sigma
                 * T
-                / _positive(predictions["ZT"])
+                / _positive(predictions["ZT"], floor=ESTM_POSITIVE_FLOOR)
             )
-            result = np.log10(_positive(kappa))
+            result = np.log10(_positive(kappa, floor=ESTM_POSITIVE_FLOOR))
         return np.clip(np.asarray(result, dtype=float), *target_range)
 
     if dataset == "PV":
@@ -328,16 +367,19 @@ def _physics(
                 * predictions["FF_fraction"]
             )
         if target == "Voc_V":
-            result = predictions["PCE_percent"] / _positive(
-                predictions["Jsc_mA_cm2"] * predictions["FF_fraction"]
+            result = _positive(predictions["PCE_percent"]) / (
+                _positive(predictions["Jsc_mA_cm2"])
+                * _positive(predictions["FF_fraction"])
             )
         elif target == "Jsc_mA_cm2":
-            result = predictions["PCE_percent"] / _positive(
-                predictions["Voc_V"] * predictions["FF_fraction"]
+            result = _positive(predictions["PCE_percent"]) / (
+                _positive(predictions["Voc_V"])
+                * _positive(predictions["FF_fraction"])
             )
         else:
-            result = predictions["PCE_percent"] / _positive(
-                predictions["Voc_V"] * predictions["Jsc_mA_cm2"]
+            result = _positive(predictions["PCE_percent"]) / (
+                _positive(predictions["Voc_V"])
+                * _positive(predictions["Jsc_mA_cm2"])
             )
         return np.clip(np.asarray(result, dtype=float), *target_range)
 
@@ -375,12 +417,34 @@ def _propagated_auxiliary_error_proxy(
     target_range: tuple[float, float],
     auxiliary_rmse: dict[str, float],
 ) -> np.ndarray:
+    """Propagate outer-training OOF auxiliary RMSE by first-order sensitivity."""
+    if dataset == "LMB":
+        return _lmb_propagated_auxiliary_error_proxy(
+            endpoint,
+            predictions,
+            context,
+            auxiliary_rmse,
+        )
+
+    base = _physics(
+        dataset,
+        endpoint,
+        predictions,
+        context,
+        direct_target=direct_target,
+        target_range=target_range,
+    )
     squared_error = np.zeros(len(direct_target), dtype=float)
     for auxiliary in endpoint.auxiliaries:
+        values = np.asarray(predictions[auxiliary], dtype=float)
+        step = np.maximum(
+            FINITE_DIFFERENCE_ABSOLUTE_STEP,
+            FINITE_DIFFERENCE_RELATIVE_STEP * np.abs(values),
+        )
         plus = {name: np.asarray(values).copy() for name, values in predictions.items()}
         minus = {name: np.asarray(values).copy() for name, values in predictions.items()}
-        plus[auxiliary] += auxiliary_rmse[auxiliary]
-        minus[auxiliary] -= auxiliary_rmse[auxiliary]
+        plus[auxiliary] += step
+        minus[auxiliary] -= step
         upper = _physics(
             dataset,
             endpoint,
@@ -397,8 +461,60 @@ def _propagated_auxiliary_error_proxy(
             direct_target=direct_target,
             target_range=target_range,
         )
-        squared_error += ((upper - lower) / 2.0) ** 2
+        with np.errstate(all="ignore"):
+            derivative = (upper - lower) / (2.0 * step)
+            one_sided = (upper - base) / step
+        nonfinite = ~np.isfinite(derivative)
+        derivative[nonfinite] = one_sided[nonfinite]
+        derivative[~np.isfinite(derivative)] = 0.0
+        sigma = auxiliary_rmse.get(auxiliary, 0.0)
+        if not np.isfinite(sigma):
+            sigma = 0.0
+        squared_error += (derivative * sigma) ** 2
     return np.sqrt(squared_error)
+
+
+def _lmb_propagated_auxiliary_error_proxy(
+    endpoint: Endpoint,
+    predictions: dict[str, np.ndarray],
+    context: pd.DataFrame,
+    auxiliary_rmse: dict[str, float],
+) -> np.ndarray:
+    """Analytic first-order propagation for the retained LMB equations."""
+    mass = _positive(context["mass_kg"].to_numpy())
+    target = endpoint.target
+    if endpoint.route == "lmb_de_mass":
+        if target == "energy_density_wh_kg":
+            return np.full_like(mass, auxiliary_rmse["discharge_energy_wh"]) / mass
+        return np.full_like(mass, auxiliary_rmse["energy_density_wh_kg"]) * mass
+
+    energy_density = np.asarray(predictions["energy_density_wh_kg"], dtype=float)
+    if target == "energy_density_wh_kg":
+        voltage = np.asarray(predictions["normal_discharge_voltage_v"], dtype=float)
+        capacity = np.asarray(predictions["discharge_capacity_ah"], dtype=float)
+        return np.sqrt(
+            ((capacity / mass) * auxiliary_rmse["normal_discharge_voltage_v"]) ** 2
+            + ((voltage / mass) * auxiliary_rmse["discharge_capacity_ah"]) ** 2
+        )
+    if target == "discharge_capacity_ah":
+        voltage = _positive(predictions["normal_discharge_voltage_v"])
+        return np.sqrt(
+            ((mass / voltage) * auxiliary_rmse["energy_density_wh_kg"]) ** 2
+            + (
+                (energy_density * mass / voltage**2)
+                * auxiliary_rmse["normal_discharge_voltage_v"]
+            )
+            ** 2
+        )
+    capacity = _positive(predictions["discharge_capacity_ah"])
+    return np.sqrt(
+        ((mass / capacity) * auxiliary_rmse["energy_density_wh_kg"]) ** 2
+        + (
+            (energy_density * mass / capacity**2)
+            * auxiliary_rmse["discharge_capacity_ah"]
+        )
+        ** 2
+    )
 
 
 def _select_gate(

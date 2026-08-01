@@ -44,23 +44,27 @@ def reliability_features(
     physics: np.ndarray,
     residual: np.ndarray,
     training_targets: np.ndarray,
-    propagated_uncertainty: np.ndarray,
+    propagated_auxiliary_error: np.ndarray,
 ) -> pd.DataFrame:
     """Return the three manuscript reliability features.
 
     R1 is the normalized disagreement between the two branches being blended.
     R2 is the normalized amount by which the physics prediction lies outside
     the outer-training target range.
-    R3 is the normalized equation-propagation uncertainty estimate.
+    R3 is the normalized equation-propagation proxy obtained from
+    training-side OOF auxiliary RMSE estimates. It is not a calibrated
+    predictive uncertainty.
     """
 
     direct = _one_dimensional(direct)
     physics = _one_dimensional(physics)
     residual = _one_dimensional(residual)
     targets = _one_dimensional(training_targets)
-    uncertainty = _one_dimensional(propagated_uncertainty)
-    if not (len(direct) == len(physics) == len(residual) == len(uncertainty)):
-        raise ValueError("Prediction and uncertainty arrays must have equal length")
+    propagated_error = _one_dimensional(propagated_auxiliary_error)
+    if not (len(direct) == len(physics) == len(residual) == len(propagated_error)):
+        raise ValueError(
+            "Prediction and propagated auxiliary-error arrays must have equal length"
+        )
 
     scale = max(float(np.std(targets, ddof=0)), EPS)
     target_min = float(np.min(targets))
@@ -72,7 +76,7 @@ def reliability_features(
         {
             "R1": np.abs(direct - residual) / scale,
             "R2": np.maximum(below, above) / target_range,
-            "R3": uncertainty / scale,
+            "R3": propagated_error / scale,
         }
     )
 

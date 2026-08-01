@@ -34,7 +34,9 @@ This is a sigmoid transformation, where *g* is a standardized ridge model and:
 
 - R<sub>1</sub>: disagreement between the direct and residual branches;
 - R<sub>2</sub>: risk that the physics prediction lies outside the training range;
-- R<sub>3</sub>: uncertainty propagated through the physical equation.
+- R<sub>3</sub>: target-normalized propagation of training-side OOF auxiliary
+  RMSE estimates through the physical equation. It is an empirical error proxy,
+  not a calibrated predictive uncertainty.
 
 ![PhysicsGate framework](results/figures/Figure1.png)
 
@@ -55,7 +57,7 @@ features = reliability_features(
     physics=physics_oof,
     residual=residual_oof,
     training_targets=y_train,
-    propagated_uncertainty=uncertainty_oof,
+    propagated_auxiliary_error=propagated_error_oof,
 )
 
 gate = PhysicsGate(alpha=1.0).fit(

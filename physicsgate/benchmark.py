@@ -365,7 +365,7 @@ def _physics(
     )
 
 
-def _propagated_uncertainty(
+def _propagated_auxiliary_error_proxy(
     dataset: str,
     endpoint: Endpoint,
     predictions: dict[str, np.ndarray],
@@ -375,7 +375,7 @@ def _propagated_uncertainty(
     target_range: tuple[float, float],
     auxiliary_rmse: dict[str, float],
 ) -> np.ndarray:
-    variance = np.zeros(len(direct_target), dtype=float)
+    squared_error = np.zeros(len(direct_target), dtype=float)
     for auxiliary in endpoint.auxiliaries:
         plus = {name: np.asarray(values).copy() for name, values in predictions.items()}
         minus = {name: np.asarray(values).copy() for name, values in predictions.items()}
@@ -397,8 +397,8 @@ def _propagated_uncertainty(
             direct_target=direct_target,
             target_range=target_range,
         )
-        variance += ((upper - lower) / 2.0) ** 2
-    return np.sqrt(variance)
+        squared_error += ((upper - lower) / 2.0) ** 2
+    return np.sqrt(squared_error)
 
 
 def _select_gate(
@@ -599,7 +599,7 @@ def _evaluate_endpoint(
         )
         for name in endpoint.auxiliaries
     }
-    uncertainty_oof = _propagated_uncertainty(
+    propagated_error_oof = _propagated_auxiliary_error_proxy(
         dataset,
         endpoint,
         aux_oof,
@@ -608,7 +608,7 @@ def _evaluate_endpoint(
         target_range=target_range,
         auxiliary_rmse=auxiliary_rmse,
     )
-    uncertainty_test = _propagated_uncertainty(
+    propagated_error_test = _propagated_auxiliary_error_proxy(
         dataset,
         endpoint,
         aux_test,
@@ -622,14 +622,14 @@ def _evaluate_endpoint(
         physics=physics_oof,
         residual=residual_oof,
         training_targets=y_train,
-        propagated_uncertainty=uncertainty_oof,
+        propagated_auxiliary_error=propagated_error_oof,
     )
     reliability_test = reliability_features(
         direct=direct_test,
         physics=physics_test,
         residual=residual_test,
         training_targets=y_train,
-        propagated_uncertainty=uncertainty_test,
+        propagated_auxiliary_error=propagated_error_test,
     )
     gate, gate_alpha = _select_gate(
         y=y_train,

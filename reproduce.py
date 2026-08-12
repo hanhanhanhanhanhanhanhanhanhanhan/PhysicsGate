@@ -63,8 +63,44 @@ def validate_origin_source() -> None:
     print("Validated minimal Origin source data for Figures 2-3.")
 
 
+def validate_supplementary_data() -> None:
+    supplementary = ROOT / "source_data" / "supplementary"
+    with (supplementary / "Supplementary_Data_S1_Split_Manifest.csv").open(
+        newline="", encoding="utf-8-sig"
+    ) as handle:
+        split_rows = list(csv.DictReader(handle))
+    if len(split_rows) != 4 or any(
+        int(row["Number of outer seeds"]) != 5 for row in split_rows
+    ):
+        raise RuntimeError("Data S1 must list four datasets with five seeds each")
+
+    with (
+        supplementary / "Supplementary_Data_S2_All_Evaluation_Unit_Metrics.csv"
+    ).open(newline="", encoding="utf-8-sig") as handle:
+        metric_rows = list(csv.DictReader(handle))
+    if len(metric_rows) != 16 * 6 * 5:
+        raise RuntimeError("Data S2 must contain 480 seed-level metric rows")
+
+    grouped_seeds: dict[tuple[str, ...], set[str]] = {}
+    for row in metric_rows:
+        key = (
+            row["Target order"],
+            row["Dataset"],
+            row["Target"],
+            row["Route"],
+            row["Method"],
+        )
+        grouped_seeds.setdefault(key, set()).add(row["Outer seed"])
+    if len(grouped_seeds) != 16 * 6 or any(
+        len(seeds) != 5 for seeds in grouped_seeds.values()
+    ):
+        raise RuntimeError("Data S2 must contain five seeds per endpoint and method")
+    print("Validated Data S1-S2 and 480 seed-level metric rows.")
+
+
 def run_pipeline() -> None:
     validate_origin_source()
+    validate_supplementary_data()
     for name in PIPELINE:
         command = [sys.executable, str(SCRIPTS / name)]
         print("+", " ".join(command), flush=True)

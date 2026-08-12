@@ -1,0 +1,5 @@
+﻿Dataset,Evaluated outer split identifiers,Number of outer seeds,Folds per outer seed,Split design
+SSE,14;483;655;752;2392,5,1,75:25 GroupShuffleSplit by material
+ESTM,4;42;99;178;2024,5,3,Three-fold paper-interpolation evaluation
+LMB,16;603;978;1254;1869,5,1,90:10 GroupShuffleSplit by name
+PV,243;938;1025;1790;2024,5,1,70:30 paper-matched row holdout

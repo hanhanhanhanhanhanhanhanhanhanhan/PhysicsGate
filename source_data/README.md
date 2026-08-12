@@ -21,6 +21,14 @@ Figures 2 and 3 were assembled in Origin; the Origin project files are
 not required because the complete plotted worksheet values are retained here.
 Figures 4, 5 and S1-S3 can be redrawn with `python reproduce.py`.
 
+## Supplementary data
+
+- `supplementary/Supplementary_Data_S1_Split_Manifest.csv` lists the five
+  evaluated outer split identifiers for each dataset.
+- `supplementary/Supplementary_Data_S2_All_Evaluation_Unit_Metrics.csv`
+  contains one row per seed, endpoint and method. ESTM metrics are first
+  averaged across the three paper-interpolation folds within each seed.
+
 ## Units and intervals
 
 - Figure 2 ranks use 1 = best and 6 = worst within each endpoint-route row.

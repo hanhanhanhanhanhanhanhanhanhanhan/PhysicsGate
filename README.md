@@ -96,6 +96,14 @@ The manuscript tables are in [`results/tables`](results/tables):
   metrics, paired gains, mechanism diagnostics, literature context and
   stabilization sensitivity.
 
+The two machine-readable supplementary data files are in
+[`source_data/supplementary`](source_data/supplementary):
+
+- `Supplementary_Data_S1_Split_Manifest.csv`: evaluated split identifiers;
+- `Supplementary_Data_S2_All_Evaluation_Unit_Metrics.csv`: seed-level RMSE,
+  MAE, nRMSE and R2 for every endpoint and method. ESTM values are averaged
+  across its three paper-interpolation folds within each outer seed.
+
 Run the core tests with:
 
 ```bash

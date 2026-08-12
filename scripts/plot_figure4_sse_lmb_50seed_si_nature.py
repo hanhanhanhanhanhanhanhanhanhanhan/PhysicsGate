@@ -685,7 +685,9 @@ def main() -> None:
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     for base in (RESULTS_DIR / "FigureS1",):
-        fig.savefig(base.with_suffix(".svg"), bbox_inches="tight")
+        fig.savefig(
+            base.with_suffix(".svg"), bbox_inches="tight", metadata={"Date": None}
+        )
         fig.savefig(base.with_suffix(".png"), dpi=300, bbox_inches="tight")
     plt.close(fig)
 

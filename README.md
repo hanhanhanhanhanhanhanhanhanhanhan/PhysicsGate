@@ -102,7 +102,7 @@ Run the core tests with:
 python -m pytest
 ```
 
-## Train from Source Data
+## Reference Refit from Source Data
 
 Raw datasets are not redistributed. DOI links and filenames are listed in
 [`data/sources.csv`](data/sources.csv). Preprocessing commands are in
@@ -115,6 +115,11 @@ python scripts/train_estm.py --all-evaluated-splits
 python scripts/train_lmb.py  --all-evaluated-splits
 python scripts/train_pv.py   --all-evaluated-splits
 ```
+
+These commands provide a compact, leakage-safe reference refit on the listed
+partitions. The exact numerical evidence used in the manuscript is retained in
+`source_data/` and `results/tables/`; the compact refit runner is not a replay
+of every historical model-search job used to create those retained files.
 
 The evaluated domains and equations are:
 

@@ -86,6 +86,7 @@ def apply_manuscript_rcparams() -> None:
             "mathtext.sf": "Arial",
             "mathtext.cal": "Arial:italic",
             "svg.fonttype": "none",
+            "svg.hashsalt": "physicsgate",
             "pdf.fonttype": 42,
         }
     )

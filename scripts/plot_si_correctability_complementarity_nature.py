@@ -343,7 +343,9 @@ def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     stems = [RESULTS_DIR / "FigureS2"]
     for stem in stems:
-        figure.savefig(stem.with_suffix(".svg"), bbox_inches="tight")
+        figure.savefig(
+            stem.with_suffix(".svg"), bbox_inches="tight", metadata={"Date": None}
+        )
         figure.savefig(stem.with_suffix(".png"), dpi=300, bbox_inches="tight")
     plt.close(figure)
     print(f"Wrote Figure S2 to {RESULTS_DIR}")

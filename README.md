@@ -89,6 +89,10 @@ S1-S3 with:
 python reproduce.py
 ```
 
+ESTM Figure 3 worksheets have been corrected to five paired outer-seed
+units, matching Data S2 and Table S5. The retained Origin image `Figure3.png`
+predates this worksheet correction and needs re-exporting in Origin.
+
 The manuscript tables are in [`results/tables`](results/tables):
 
 - `Table1.csv`: benchmark map used in the main text;

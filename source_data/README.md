@@ -35,10 +35,11 @@ Figures 4, 5 and S1-S3 can be redrawn with `python reproduce.py`.
 - Figure 3 and mechanism gains use
   `G = log2(RMSE_Direct / RMSE_method)`.
 - `XErrMinus` and `XErrPlus` are positive asymmetric distances from `X`.
-- ESTM Table S5 and Figure 3 use five paired seed-level RMSE values from
-  Data S2, after averaging the three folds within each seed. Gains, wins and
-  exact percentile-bootstrap 95% intervals use these five units, not 15 folds.
-  Rebuild them with `python scripts/update_estm_reporting.py`.
+- Table S5 and Figure 3 use the five paired seed-level RMSE values of each
+  endpoint in Data S2 (for ESTM after averaging the three folds within each
+  seed). Gains, wins and exact percentile-bootstrap 95% intervals use these
+  five units. Rebuild them, and Table S4 and the Figure 2 worksheets, with
+  `python scripts/update_benchmark_reporting.py`.
 - `MainPlotX*` fields contain the displayed/clipped coordinates; `X*` fields
   retain the underlying coordinates used by zoomed insets and annotations.
 - Fifty-split files contain one row per retained split-target diagnostic unless

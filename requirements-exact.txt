@@ -1,0 +1,9 @@
+# Versions used to verify scripts/reproduce_submitted.py against Data S2 (Python 3.12.12).
+numpy==2.3.0
+pandas==2.3.3
+scikit-learn==1.8.0
+scipy==1.17.0
+xgboost==3.1.2
+joblib==1.4.2
+matplotlib==3.9.2
+openpyxl==3.1.5

@@ -109,11 +109,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,Physics-only,mean of 3 paper-interpolation folds,117.1308676865245,52.713802393860156,0.5687094029556955,0.6765288603032173
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,Physics-only,mean of 3 paper-interpolation folds,114.67590452888938,51.519198853013734,0.5571818715377549,0.6891405081267598
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,Physics-only,mean of 3 paper-interpolation folds,116.66216637969343,53.29938456852202,0.5663779342442825,0.6787078491566918
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,PhysicsGate,mean of 3 paper-interpolation folds,49.711886020707055,25.479491970874548,0.2413583900396056,0.9413980886385273
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,PhysicsGate,mean of 3 paper-interpolation folds,50.14577258619744,25.767846622168737,0.2434555340275113,0.9406857496502065
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,PhysicsGate,mean of 3 paper-interpolation folds,54.1189672686612,26.761388252655106,0.2631454973036244,0.9302025735900866
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,PhysicsGate,mean of 3 paper-interpolation folds,49.03150622447756,25.122936892421276,0.23826764460885705,0.9432065897224762
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,PhysicsGate,mean of 3 paper-interpolation folds,48.217299241532515,25.238289951935144,0.23403837516543566,0.9451950410872243
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,PhysicsGate,mean of 3 paper-interpolation folds,49.76454374337612,25.51623632570421,0.2416137532753274,0.9412728446576912
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,PhysicsGate,mean of 3 paper-interpolation folds,50.12143666461109,25.7593940965468,0.2433401953514679,0.940737249115262
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,PhysicsGate,mean of 3 paper-interpolation folds,54.32965500503287,26.80584587734981,0.2641943547042747,0.9295909014252972
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,PhysicsGate,mean of 3 paper-interpolation folds,49.06629386208989,25.11833746634176,0.2384373658289033,0.9431254384169908
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,PhysicsGate,mean of 3 paper-interpolation folds,48.27180728785007,25.24984802372921,0.2342998886280804,0.945068775182219
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,Residual-only,mean of 3 paper-interpolation folds,53.297574475202794,26.47738866950137,0.2587741573815016,0.932807778679929
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,Residual-only,mean of 3 paper-interpolation folds,53.16064595332758,26.852159841027515,0.25799367635165593,0.9331667686034745
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,Residual-only,mean of 3 paper-interpolation folds,57.40881457505278,27.69395915849306,0.27915839673400317,0.9217363305963234
@@ -169,11 +169,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,Physics-only,mean of 3 paper-interpolation folds,1.018330781510237,0.41567200512922625,1.0697614760423617,-0.14865440765194393
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,Physics-only,mean of 3 paper-interpolation folds,1.039892846451856,0.4270436635698472,1.0984548883075407,-0.23230257400537627
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,Physics-only,mean of 3 paper-interpolation folds,1.0735640987636046,0.4361699977417373,1.1260226513646,-0.27712956818142254
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,PhysicsGate,mean of 3 paper-interpolation folds,0.3064767475570196,0.15134581977405245,0.3212719356983184,0.8948039712210631
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,PhysicsGate,mean of 3 paper-interpolation folds,0.2754833764569733,0.14916345327708236,0.2888574921826894,0.9164123207832642
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,PhysicsGate,mean of 3 paper-interpolation folds,0.27100752181963106,0.14752308546970552,0.2854326847144912,0.9181738675571411
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,PhysicsGate,mean of 3 paper-interpolation folds,0.2849416392239886,0.15031132345164186,0.29890542670947956,0.9105619245495692
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,PhysicsGate,mean of 3 paper-interpolation folds,0.2677793667235997,0.14502826349151332,0.28102232813410793,0.9210058222229249
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,PhysicsGate,mean of 3 paper-interpolation folds,0.3063448698073261,0.1506587576331435,0.3211363308929195,0.8949373887469582
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,PhysicsGate,mean of 3 paper-interpolation folds,0.273461026659524,0.1481006221113863,0.2867661992959572,0.917619633398202
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,PhysicsGate,mean of 3 paper-interpolation folds,0.2712139187694642,0.147559317098276,0.2856534791238593,0.9180481263649424
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,PhysicsGate,mean of 3 paper-interpolation folds,0.2863983221842622,0.150540554207634,0.3003580355450195,0.90964790741885
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,PhysicsGate,mean of 3 paper-interpolation folds,0.2674274146789876,0.1446562166060635,0.2806492504001496,0.9212209946866254
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,Residual-only,mean of 3 paper-interpolation folds,0.3270208250899241,0.15826377810115524,0.3428351635803748,0.8799358974127918
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,Residual-only,mean of 3 paper-interpolation folds,0.28665628699658136,0.15241604705399023,0.3006560348127817,0.9093517030668625
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,Residual-only,mean of 3 paper-interpolation folds,0.2777498889643029,0.14991462571510653,0.2925246653851255,0.9141121530936692
@@ -199,11 +199,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,Physics-only,mean of 3 paper-interpolation folds,0.39834660129376226,0.22304082995364408,1.0317987478213342,-0.06483195233347021
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,Physics-only,mean of 3 paper-interpolation folds,0.40781974116690317,0.22680993950343373,1.0581009967672583,-0.12389280173967654
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,Physics-only,mean of 3 paper-interpolation folds,0.4166320254385903,0.23116697912607917,1.0793515201808843,-0.16528534186093044
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,PhysicsGate,mean of 3 paper-interpolation folds,0.07575367405883364,0.04986295123265903,0.19640384511831877,0.9610437906058927
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,PhysicsGate,mean of 3 paper-interpolation folds,0.07852589059453476,0.05003665441976283,0.20345548218320653,0.9585975550796881
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,PhysicsGate,mean of 3 paper-interpolation folds,0.07994687826625073,0.05108968824347846,0.20708348320512684,0.9570814592856473
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,PhysicsGate,mean of 3 paper-interpolation folds,0.07809663165137193,0.050872451942201434,0.20238821499335855,0.958921163545127
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,PhysicsGate,mean of 3 paper-interpolation folds,0.07722731539554653,0.0493441559371249,0.2000303224583486,0.9599776662910072
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,PhysicsGate,mean of 3 paper-interpolation folds,0.0757743437751017,0.0498835376139584,0.196455997764855,0.9610297577639324
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,PhysicsGate,mean of 3 paper-interpolation folds,0.0784565478521646,0.0499742615431622,0.2032751841941754,0.9586715911810429
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,PhysicsGate,mean of 3 paper-interpolation folds,0.0799526809538495,0.0511131691190365,0.2070986287269774,0.9570752028321524
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,PhysicsGate,mean of 3 paper-interpolation folds,0.0782044841290391,0.0510290312616012,0.202656680169934,0.9588201194416942
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,PhysicsGate,mean of 3 paper-interpolation folds,0.0772676058974225,0.0493492227544678,0.2001326612369662,0.95993660037005
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,Residual-only,mean of 3 paper-interpolation folds,0.08015516632998514,0.052479075761974164,0.2077744524962312,0.9566316922932913
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,Residual-only,mean of 3 paper-interpolation folds,0.08070277087499676,0.05118432034990377,0.20909562758455072,0.9562724809938103
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,Residual-only,mean of 3 paper-interpolation folds,0.08385667091841296,0.052750925799985936,0.21723148847369664,0.9526783359350387
@@ -380,8 +380,8 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 13,PV,FF,FF_fraction,,1790,Physics-only,single held-out split,0.2089157741100424,0.0845053230192469,1.7141985309122365,-1.93847660338167
 13,PV,FF,FF_fraction,,2024,Physics-only,single held-out split,0.1903719608362319,0.0817753406419518,1.588136384954749,-1.5221771772171384
 13,PV,FF,FF_fraction,,243,PhysicsGate,single held-out split,0.0892495204871666,0.0589498273636359,0.7394391740872526,0.4532297078251617
-13,PV,FF,FF_fraction,,938,PhysicsGate,single held-out split,0.089676003791157,0.059240740231552,0.7377874680512199,0.4556696519865703
-13,PV,FF,FF_fraction,,1025,PhysicsGate,single held-out split,0.0907087780353104,0.0596904115030153,0.7358147507832296,0.4585766525298139
+13,PV,FF,FF_fraction,,938,PhysicsGate,single held-out split,0.0896746042424626,0.0592418303978976,0.7377759536053923,0.4556866422816541
+13,PV,FF,FF_fraction,,1025,PhysicsGate,single held-out split,0.0907078547090278,0.0596891447970387,0.7358072609116511,0.4585876747896934
 13,PV,FF,FF_fraction,,1790,PhysicsGate,single held-out split,0.0910411576262179,0.0601296325033036,0.7470121359682925,0.4419728687160891
 13,PV,FF,FF_fraction,,2024,PhysicsGate,single held-out split,0.0886087591957962,0.0588956206966079,0.7391991650787001,0.4535845943469527
 13,PV,FF,FF_fraction,,243,Residual-only,single held-out split,0.0892240132016872,0.059384938249202,0.7392278442559534,0.4535421942766958
@@ -409,11 +409,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,Physics-only,single held-out split,4.290242087561896,2.2856804472572696,0.7866397987830054,0.3811978269706328
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,Physics-only,single held-out split,4.263242757592848,2.223800396444111,0.7809354634265897,0.3901398019626975
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,Physics-only,single held-out split,4.158277190472917,2.228223488633834,0.7717265990065515,0.4044380563857814
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,PhysicsGate,single held-out split,3.5970882028535733,1.9769630783854728,0.6634416173057998,0.5598452204266646
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,PhysicsGate,single held-out split,3.288253939058474,1.958136904230092,0.6150141937115473,0.6217575415333355
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,PhysicsGate,single held-out split,3.5494080077562664,1.968704423142906,0.650803741149,0.5764544905064655
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,PhysicsGate,single held-out split,3.508804259168221,1.9446117319263925,0.6427383651391917,0.5868873939781989
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,PhysicsGate,single held-out split,3.5484677325870413,1.9609741053487464,0.658553244412849,0.5663076242733103
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,PhysicsGate,single held-out split,3.597066228858916,1.976409319715938,0.6634375644547904,0.5598505980702959
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,PhysicsGate,single held-out split,3.289344816356981,1.95797259877276,0.6152182244934191,0.6215065362511649
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,PhysicsGate,single held-out split,3.549111497590008,1.967963092996254,0.650749374357392,0.5765252517734629
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,PhysicsGate,single held-out split,3.508785469241938,1.944600380093654,0.6427349232240525,0.5868918184681714
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,PhysicsGate,single held-out split,3.548503164988414,1.96053054545113,0.6585598202435005,0.5662989631608484
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,Residual-only,single held-out split,3.607105373826716,1.9972455283684387,0.6652891694747954,0.557390320979537
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,Residual-only,single held-out split,3.3009814207587724,1.9939022818006875,0.6173946612912892,0.6188238322090143
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,Residual-only,single held-out split,3.5471677079204533,1.986014404320112,0.6503929696876023,0.5769889849809418
@@ -469,11 +469,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 16,PV,VOC (V),Voc_V,,1025,Physics-only,single held-out split,0.188201946106201,0.0935476037841015,1.0156908875999977,-0.0316279791536702
 16,PV,VOC (V),Voc_V,,1790,Physics-only,single held-out split,0.1807178574470306,0.0897580855709254,0.9593998246864256,0.0795519763916555
 16,PV,VOC (V),Voc_V,,2024,Physics-only,single held-out split,0.2474815768490349,0.0956020868632731,1.3773726137279965,-0.8971553170478925
-16,PV,VOC (V),Voc_V,,243,PhysicsGate,single held-out split,0.1105832290678631,0.0607724875378519,0.6122952170011718,0.625094567237488
-16,PV,VOC (V),Voc_V,,938,PhysicsGate,single held-out split,0.1126027362390852,0.0622033657915311,0.6096818135561283,0.6282880862189103
-16,PV,VOC (V),Voc_V,,1025,PhysicsGate,single held-out split,0.1144384456868794,0.0610302698929658,0.6176029997568707,0.6185665346913147
-16,PV,VOC (V),Voc_V,,1790,PhysicsGate,single held-out split,0.115728109775787,0.0619091300586252,0.6143805033917293,0.6225365970521253
-16,PV,VOC (V),Voc_V,,2024,PhysicsGate,single held-out split,0.1105072746960745,0.0602514789049344,0.615034443056497,0.6217326338541846
+16,PV,VOC (V),Voc_V,,243,PhysicsGate,single held-out split,0.1105692322558154,0.0607855136956284,0.6122177171746401,0.6251894667774724
+16,PV,VOC (V),Voc_V,,938,PhysicsGate,single held-out split,0.112602754562411,0.0622035989898576,0.6096819127668479,0.6282879652449576
+16,PV,VOC (V),Voc_V,,1025,PhysicsGate,single held-out split,0.1144345926227872,0.0610272182140331,0.6175822054868394,0.6185922194660114
+16,PV,VOC (V),Voc_V,,1790,PhysicsGate,single held-out split,0.1157201287967249,0.0619039025035544,0.6143381337553186,0.6225886574140322
+16,PV,VOC (V),Voc_V,,2024,PhysicsGate,single held-out split,0.1105116355754513,0.0602554087077719,0.6150587137755619,0.6217027786087514
 16,PV,VOC (V),Voc_V,,243,Residual-only,single held-out split,0.1107302900472355,0.0612982092609348,0.6131094881617827,0.6240967555259969
 16,PV,VOC (V),Voc_V,,938,Residual-only,single held-out split,0.1126571529943416,0.0624025618738375,0.6099764503219892,0.6279287300525858
 16,PV,VOC (V),Voc_V,,1025,Residual-only,single held-out split,0.1144759107337446,0.0613159070316058,0.617805191644318,0.6183167451773275

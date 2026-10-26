@@ -554,7 +554,7 @@ def draw_gate_fixed_panel(
     ax.text(
         0.98,
         0.515,
-        "ESTM: adaptive gain (+1.16%)",
+        "ESTM: adaptive gain (+1.13%)",
         transform=ax.transAxes,
         ha="right",
         va="bottom",

@@ -1,13 +1,15 @@
 # Data
 
-Raw datasets are not redistributed. Download them from the links in
-`sources.csv`, place them in `data/raw/`, and run:
+Raw datasets are not redistributed. Download them from the sources in
+`sources.csv` and place them in `data/raw/` under these names:
 
-```powershell
-python scripts/preprocess_sse.py  --input data/raw/SSE.xlsx
-python scripts/preprocess_estm.py --input data/raw/estm.csv
-python scripts/preprocess_lmb.py  --input "data/raw/Energy density.xlsx"
-python scripts/preprocess_pv.py   --input data/raw/Perovskite_database_content_all_data.csv
-```
+| Dataset | File |
+|---|---|
+| SSE | `SSE.xlsx` |
+| ESTM | `estm.csv` |
+| LMB | `Energy density.xlsx` |
+| PV | `Perovskite_database_content_all_data.csv` |
 
-Each command writes a processed CSV and schema JSON to `data/processed/`.
+`python scripts/reproduce_submitted.py` processes the raw files itself and
+writes the processed tables (`estm_clean.csv`, `lmb_clean.csv`, `pv_clean.csv`)
+to `data/processed/`. SSE is read directly from `SSE.xlsx`.

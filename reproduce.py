@@ -102,7 +102,7 @@ def run_pipeline() -> None:
     validate_origin_source()
     validate_supplementary_data()
     subprocess.run(
-        [sys.executable, str(SCRIPTS / "update_estm_reporting.py"), "--check"],
+        [sys.executable, str(SCRIPTS / "update_benchmark_reporting.py"), "--check"],
         cwd=ROOT,
         check=True,
     )

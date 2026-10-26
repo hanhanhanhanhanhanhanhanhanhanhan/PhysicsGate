@@ -5,6 +5,8 @@ __pycache__/
 .venv/
 data/raw/
 data/processed/
+results/*
+!results/figures/
+!results/tables/
 results/figures/*_reproduced.png
 results/figures/*.pdf
-results/refit/

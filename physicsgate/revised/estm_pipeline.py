@@ -30,6 +30,7 @@ from physicsgate.submitted.estm.base_models import build_base_tree_estimator, oo
 from physicsgate.submitted.common.gate_fit import metric_dict, reliability_features  # noqa: E402
 from physicsgate.submitted.lmb.gate_features import METHOD_R2_R5_R6, tune_r2_r5_r6_gate  # noqa: E402
 from physicsgate.submitted.estm.features import DEFAULT_INPUT_PATH, build_feature_matrix, split_indices  # noqa: E402
+from physicsgate.revised import ordinary  # noqa: E402
 
 TABLE_DIR = REPO_ROOT / "results" / "submitted"
 
@@ -295,12 +296,13 @@ def evaluate_fold(
         )
     )
 
-    ordinary_train = np.column_stack(
-        [direct_oof, *[aux_oof[column] for column in aux_columns], phys_oof, t_train]
+    # REVISION C2: the meta-learner combines base learners fitted to the target from the Direct inputs.
+    extra_oof, extra_test = ordinary.estm_base_predictions(
+        X_train, y_train, X_test, random_state=fold_seed + 211, n_jobs=args.n_jobs, inner_cv=args.inner_cv,
+        oof_and_test=oof_and_test_predictions,
     )
-    ordinary_test_features = np.column_stack(
-        [direct_test, *[aux_test[column] for column in aux_columns], phys_test, t_test]
-    )
+    ordinary_train = np.column_stack([direct_oof, *extra_oof])
+    ordinary_test_features = np.column_stack([direct_test, *extra_test])
     _ordinary_oof, ordinary_test, ordinary_meta, ordinary_score = wide.select_prediction_model(
         ordinary_train,
         y_train,
@@ -319,7 +321,7 @@ def evaluate_fold(
             "Ordinary stacking",
             ordinary_test,
             None,
-            f"OOF-safe ordinary meta(Direct, predicted auxiliaries, Physics-only, T); meta={ordinary_meta}, train inner-OOF RMSE={ordinary_score:.8g}.",
+            f"OOF-safe ordinary meta(Direct, ridge, random forest, extra trees, gradient boosting); meta={ordinary_meta}, train inner-OOF RMSE={ordinary_score:.8g}.",
         )
     )
 

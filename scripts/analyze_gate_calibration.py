@@ -7,17 +7,18 @@ residual-corrected branch (R) that minimizes the squared error of
 D + w (R - D) on those samples, restricted to [0, 1]. A calibrated weight
 lies on the diagonal of bin-optimal against mean predicted weight.
 
-The squared error of the blended prediction is a proper scoring rule for the
-weight. It is decomposed, as for the Brier score, into the loss of the best
-constant weight, the resolution gained by ranking samples with w, and the
-reliability (miscalibration) cost:
+The squared error of the blended prediction is decomposed within the class of
+one constant weight per bin:
 
-    loss(gate) = loss(best constant) - resolution + reliability,
+    loss(gate) = loss(best constant) - resolution + reliability + within-bin,
 
-where resolution = loss(best constant) - loss(bin-optimal weights) and
-reliability = loss(gate) - loss(bin-optimal weights). All three use held-out
-targets and serve only as diagnostics. Losses are reported relative to the
-mean squared error of Direct.
+where resolution = loss(best constant) - loss(bin-optimal weights) >= 0,
+reliability = loss(bin-mean gate weights) - loss(bin-optimal weights) >= 0 is
+the cost of the gate's weight level in each bin, and within-bin = loss(gate) -
+loss(bin-mean gate weights) is the effect of the variation of w inside the bins
+(negative if it helps). All terms use held-out targets and serve only as
+diagnostics, not for model selection. Losses are reported relative to the mean
+squared error of Direct.
 
     python scripts/analyze_gate_calibration.py [--samples DATASET=PATH ...] [--out DIR]
 """
@@ -58,15 +59,18 @@ def unit_statistics(unit: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
         recalibrated[mask] = wb
         curve.append({"bin": b + 1, "n": int(mask.sum()), "mean_w": float(w[mask].mean()), "bin_optimal_w": wb})
     curve = pd.DataFrame(curve)
+    binned = curve.set_index("bin").loc[bins + 1, "mean_w"].to_numpy()  # the gate's mean weight in each bin
     w0 = best_weight(d, r, y)
     scale = mse(y, d)
     loss_const = mse(y, d + w0 * (r - d)) / scale
     loss_gate = mse(y, d + w * (r - d)) / scale
     loss_recal = mse(y, d + recalibrated * (r - d)) / scale
+    loss_binned = mse(y, d + binned * (r - d)) / scale
     stats = {
         "best_constant_w": w0, "mean_w": float(w.mean()), "sd_w": float(w.std()),
         "loss_best_constant": loss_const, "loss_gate": loss_gate, "loss_bin_optimal": loss_recal,
-        "resolution": loss_const - loss_recal, "reliability": loss_gate - loss_recal,
+        "loss_bin_mean_gate": loss_binned, "resolution": loss_const - loss_recal,
+        "reliability": loss_binned - loss_recal, "within_bin": loss_gate - loss_binned,
         "calibration_error": float(np.average(np.abs(curve["bin_optimal_w"] - curve["mean_w"]), weights=curve["n"])),
     }
     return stats, curve
@@ -104,7 +108,7 @@ def main() -> None:
     rows = []
     for (dataset, endpoint), group in units.groupby(["dataset", "endpoint"], sort=False):
         row = {"dataset": dataset, "endpoint": endpoint, "splits": len(group)}
-        for column in ("mean_w", "sd_w", "calibration_error", "resolution", "reliability",
+        for column in ("mean_w", "sd_w", "calibration_error", "resolution", "reliability", "within_bin",
                        "loss_best_constant", "loss_gate"):
             low, high = bootstrap(group[column].to_numpy(), rng)
             row.update({column: float(group[column].mean()), f"{column}_CI_low": low, f"{column}_CI_high": high,
@@ -122,7 +126,8 @@ def main() -> None:
     curve_summary.to_csv(args.out / "gate_calibration_curves.csv", index=False)
     with pd.option_context("display.width", 250, "display.max_columns", 30):
         print(summary[["dataset", "endpoint", "mean_w", "sd_w", "calibration_slope_pooled", "calibration_error",
-                       "resolution_median", "reliability_median", "loss_best_constant_median", "loss_gate_median",
+                       "resolution_median", "reliability_median", "within_bin_median", "loss_best_constant_median",
+                       "loss_gate_median",
                        "splits_gate_better_than_best_constant"]].round(4).to_string(index=False))
 
 

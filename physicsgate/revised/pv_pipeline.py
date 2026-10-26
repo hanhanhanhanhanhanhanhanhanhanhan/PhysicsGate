@@ -71,6 +71,7 @@ from physicsgate.submitted.common.gate_features import reliability_features  # n
 from physicsgate.submitted.common.gate_fit import fit_gate_model  # noqa: E402
 from physicsgate.submitted.pv.common import FEATURE_COLUMNS, TARGET_COLUMNS  # noqa: E402
 from physicsgate.submitted.pv.stabilization import clipping_audit, fit_pv_base_once, train_range_clip  # noqa: E402
+from physicsgate.revised import ordinary  # noqa: E402
 
 
 def arr(values: Any) -> np.ndarray:
@@ -433,10 +434,16 @@ def run_seed(
 
         if seed in FROZEN_FIVE:
             ordinary_rows: list[dict[str, Any]] = []
+            # REVISION C2: the meta-learner combines base learners fitted to the target from the Direct inputs.
+            extra_oof, extra_test = ordinary.pv_base_predictions(
+                data, target, train_idx, test_idx, feature_columns=FEATURE_COLUMNS,
+                encode=pv.pvgated.encode_features_for_target, random_state=seed + target_index * 31 + 211,
+                n_jobs=n_jobs, inner_cv=inner_cv,
+            )
             _, ordinary_test, ordinary_name, _ = pv.paper.select_meta(
-                residual_feature_oof,
+                np.column_stack([direct_oof, *extra_oof]),
                 y_train,
-                residual_feature_test,
+                np.column_stack([direct_test, *extra_test]),
                 y_test=y_test,
                 target=target,
                 role=f"{target}_Ordinary_stacking_unified_train_range",

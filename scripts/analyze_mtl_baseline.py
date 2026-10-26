@@ -2,11 +2,11 @@
 
 Reads the test predictions written by ``physicsgate.revised.mtl_baseline`` and
 reports, per endpoint and domain, the paired gain G = log2(RMSE_Direct /
-RMSE_model) of the multitask and single-task MLPs and forests, next to that of
+RMSE_model) of the multitask and single-task MLPs and the single-task forest, next to that of
 PhysicsGate from the revised-protocol Data S2. For the MLPs, G is averaged over
 the three initializations. ESTM metrics are averaged over the three folds of a
-split first, as in Data S2. The effect of sharing alone is the gain of each
-multitask model over its single-task counterpart. Domain values average the
+split first, as in Data S2. The effect of sharing alone is the gain of the
+multitask MLP over the single-task MLP. Domain values average the
 properties of a split with equal weight (the two LMB energy-density routes
 count once) and then the five splits.
 
@@ -24,7 +24,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 RECORDS = ROOT / "results" / "mtl_baseline" / "workdir" / "results" / "submitted" / "mtl_baseline"
 REFERENCE = ROOT / "source_data" / "supplementary" / "Supplementary_Data_S2_All_Evaluation_Unit_Metrics.csv"
-MODELS = ["mtl_mlp", "stl_mlp", "mtl_forest", "stl_forest"]
+MODELS = ["mtl_mlp", "stl_mlp", "stl_forest"]
 
 
 def unit_rmse(records: pd.DataFrame) -> pd.DataFrame:
@@ -59,9 +59,8 @@ def main() -> None:
         merged[f"G {model}"] = gains.mean(axis=1)
         if len(inits) > 1:
             merged[f"G {model} min"], merged[f"G {model} max"] = gains.min(axis=1), gains.max(axis=1)
-    for family in ("mlp", "forest"):
-        merged[f"sharing {family}"] = merged[f"G mtl_{family}"] - merged[f"G stl_{family}"]
-    gain_columns = ["G PhysicsGate", *[f"G {m}" for m in MODELS], "sharing mlp", "sharing forest"]
+    merged["sharing mlp"] = merged["G mtl_mlp"] - merged["G stl_mlp"]
+    gain_columns = ["G PhysicsGate", *[f"G {m}" for m in MODELS], "sharing mlp"]
 
     keys = ["Target order", "Dataset", "Target", "Route"]
     endpoint = merged.groupby(keys)[gain_columns].mean().reset_index().sort_values("Target order")

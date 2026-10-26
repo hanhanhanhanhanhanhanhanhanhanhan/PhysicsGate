@@ -61,12 +61,12 @@ PhysResStack and PhysicsGate over five outer splits
 
 ## Results
 
-At the domain level, PhysicsGate gave the largest mean paired gain in all four
-domains, equivalent to RMSE reductions of 12.9% for liquid metal batteries,
-8.9% for thermoelectric materials, 5.2% for solid-state ionic conductors and
-0.4% for photovoltaic devices; the liquid metal battery interval includes zero
-(Supplementary Table S9). It ranked first for 15 of the 16 target-route
-endpoints, which are not independent. With the thermoelectric Direct model at
+At the domain level, PhysicsGate gave the largest mean paired gain of the six
+architectures in all four domains, equivalent to RMSE reductions of 12.9% for
+liquid metal batteries, 8.9% for thermoelectric materials, 5.2% for solid-state
+ionic conductors and 0.4% for photovoltaic devices; the liquid metal battery
+interval includes zero (Supplementary Table S9). It ranked first for 15 of the
+16 target-route endpoints, which are not independent. With the thermoelectric Direct model at
 the source authors' settings, the thermoelectric gain is 2.8% (Table S18), and
 under composition-held-out thermoelectric splits PhysicsGate is 2.4% less
 accurate than Direct (Table S19). The repeated-split analyses (Figures 4 and 5)
@@ -123,10 +123,12 @@ under `results/`.
 [`physicsgate/submitted`](physicsgate/submitted) contains the analysis code of
 the study, reduced to the definitions the reported runs execute, with function
 bodies unchanged; each module docstring names its original source file.
-[`physicsgate/revised`](physicsgate/revised) applies one correction,
-listed in [`CHANGES.md`](physicsgate/revised/CHANGES.md): the range-risk
-descriptor R<sub>2</sub> is computed from the unclipped physics prediction, as
-defined in the Methods. The reported results use the corrected code.
+[`physicsgate/revised`](physicsgate/revised) applies two corrections that
+bring the code in line with the Methods, listed in
+[`CHANGES.md`](physicsgate/revised/CHANGES.md): the range-risk descriptor
+R<sub>2</sub> is computed from the unclipped physics prediction, and Ordinary
+stacking combines base learners fitted directly to the target (both for ESTM
+and PV). The reported results use the corrected code.
 
 ### Benchmark: Figures 2 and 3, Tables S4, S5 and S9, Data S2
 
@@ -184,8 +186,8 @@ taken from it.
 | S12 | Gate fitted to the error of the blended prediction ([`gate.py`](physicsgate/revised/gate.py)) | `reproduce_submitted.py --protocol blend_gate --parallel`, then `analyze_blend_gate.py` |
 | S13 | Training and inference cost | `reproduce_revision.py cost_audit`, then `analyze_cost.py` |
 | S14 | Direct as a bagged ensemble at the training time of PhysicsGate | `reproduce_revision.py bagged_direct`, then `analyze_bagged_direct.py` |
-| S15 | Multitask and multi-output baselines | `reproduce_revision.py mtl_baseline`, then `analyze_mtl_baseline.py` |
-| S16 | Inputs and target of the residual model | `reproduce_revision.py residual_ablation` (and `residual_nodirect`, `residual_direct_target`, `residual_no_physics`), then `analyze_residual_ablation.py --results-dir results/<analysis>/workdir/results/submitted --name <analysis>` |
+| S15 | Multitask baselines | `reproduce_revision.py mtl_baseline`, then `analyze_mtl_baseline.py` |
+| S16 | Inputs and target of the residual model | `reproduce_revision.py residual_ablation` (and `residual_nodirect`, `residual_direct_target`, `residual_no_physics`, `residual_sse_direct`), then `analyze_residual_ablation.py --results-dir results/<analysis>/workdir/results/submitted --name <analysis>` |
 | S17 | Source-study performance | values reported in the source studies, with Direct R<sup>2</sup> from Data S2 and Table S20 |
 | S18 | ESTM with the source authors' XGBoost setting for Direct | `reproduce_revision.py estm_source_settings` and `estm_source_settings_blend`, then `analyze_estm_diagnostics.py --results-dir results/<analysis>/workdir/results/submitted --name <analysis> --same-splits` |
 | S19 | ESTM with an element-property representation and composition-held-out splits | `reproduce_revision.py estm_element_stats` (with `--same-splits` in the analysis) and `estm_formula_group`, analysed as for S18 |
@@ -203,8 +205,9 @@ holds the settings selected in the first stage, which
 the code without the correction and reproduces the Data S2 of the submitted
 manuscript, which is preserved with the rest of that version under the tag
 [`v1.0-submitted`](https://github.com/hanhanhanhanhanhanhanhanhanhanhan/PhysicsGate/releases/tag/v1.0-submitted).
-The correction changes 27 of the 480 units, all PhysicsGate units of the
-clipped ESTM and PV routes, and leaves the endpoint rankings unchanged.
+The corrections change 67 of the 480 units, the PhysicsGate units of the
+clipped ESTM and PV routes and the ESTM and PV Ordinary stacking units, and
+leave the rank of PhysicsGate unchanged for every endpoint.
 
 ## Files
 

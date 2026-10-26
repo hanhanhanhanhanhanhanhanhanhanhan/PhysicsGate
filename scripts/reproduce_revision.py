@@ -18,6 +18,7 @@ residual_ablation             S16    physicsgate.revised.residual_ablation (inpu
 residual_nodirect             S16    ... without Direct
 residual_direct_target        S16    ... target fitted directly
 residual_no_physics           S16    ... target fitted without Physics-only
+residual_sse_direct           S16    physicsgate.revised.sse_direct_residual: SSE residual model with the Direct prediction added
 estm_tuned_base               S18    physicsgate.revised.estm_diagnostics, first stage of the auxiliary tuning
 estm_source_settings          S18    ... Direct at the source authors' setting, tuned auxiliary and residual models
 estm_source_settings_blend    S18    the same with the gate fitted to the blend error (physicsgate.revised.gate)
@@ -55,7 +56,7 @@ ESTM = {
 }
 ESTM["estm_source_settings_blend"] = ESTM["estm_source_settings"]
 ANALYSES = ["r3_audit", "cost_audit", "bagged_direct", "mtl_baseline", "residual_ablation", "residual_nodirect",
-            "residual_direct_target", "residual_no_physics", *ESTM]
+            "residual_direct_target", "residual_no_physics", "residual_sse_direct", *ESTM]
 
 
 def prepare(name: str) -> Path:
@@ -139,6 +140,11 @@ def main() -> None:
             command = ["physicsgate.revised.gate", *command]
         env = {"LOKY_MAX_CPU_COUNT": "32"} if "source_settings" in args.analysis else None
         run([["physicsgate.submitted.estm.data"], command], workdir, env)
+        return
+
+    if args.analysis == "residual_sse_direct":
+        run([["physicsgate.revised.sse_direct_residual", "--seeds", ",".join(seeds("SSE")), "--include-physresstack",
+              "--output-tag", "submitted"]], workdir)
         return
 
     if args.analysis == "mtl_baseline":

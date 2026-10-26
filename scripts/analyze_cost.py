@@ -10,8 +10,8 @@ set), the cost of training each method from scratch:
   Direct model with OOF predictions where it is a residual input (ESTM, LMB,
   PV), and the residual model;
 - Ordinary stacking: its base-model pool with OOF predictions and the
-  meta-learner (SSE and LMB use a separate pool; ESTM and PV stack the Direct,
-  auxiliary and Physics-only predictions);
+  meta-learner (SSE and LMB use a separate pool; ESTM and PV add four learners
+  to the Direct model with OOF predictions);
 - PhysResStack: the Residual-only branch, the Direct model with OOF
   predictions and the meta-learner;
 - PhysicsGate: the same branches, R3 and the gate.
@@ -169,7 +169,7 @@ def method_costs(u: pd.DataFrame) -> pd.DataFrame:
         full = {p: u[f"{p}_{metric}"] for p in ("direct", "aux", "physics", "residual", "R3", "gate", "ordinary", "physres")}
         direct_in_residual = (u["dataset"] != "SSE").astype(float)
         residual_only = full["aux"] + full["physics"] + full["residual"] + direct_in_residual * full["direct"]
-        stack_base = np.where(u["dataset"].isin(["ESTM", "PV"]), full["direct"] + full["aux"] + full["physics"], 0.0)
+        stack_base = np.where(u["dataset"].isin(["ESTM", "PV"]), full["direct"], 0.0)
         out[f"Direct {metric}"] = alone["direct"]
         out[f"Physics-only {metric}"] = alone["aux"] + full["physics"]
         out[f"Residual-only {metric}"] = residual_only

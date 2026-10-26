@@ -94,11 +94,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,Direct,mean of 3 paper-interpolation folds,57.019369475603476,32.43848035598597,0.27710089926931686,0.9228573810833605
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,Direct,mean of 3 paper-interpolation folds,53.28534765810391,31.682057647521713,0.25897233286326726,0.9328513572951441
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,Direct,mean of 3 paper-interpolation folds,52.05476162709838,31.10868432779199,0.25265951152430627,0.9361323816059707
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,Ordinary stacking,mean of 3 paper-interpolation folds,53.0781900097042,27.27640815950319,0.2576960363254251,0.9331542341352531
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,Ordinary stacking,mean of 3 paper-interpolation folds,53.26307453807818,27.21674983032037,0.25859228943310336,0.9330827097208786
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,Ordinary stacking,mean of 3 paper-interpolation folds,55.86171532913417,28.266105727491823,0.2715579463573245,0.925710800662825
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,Ordinary stacking,mean of 3 paper-interpolation folds,50.62013294019594,26.81016782470169,0.24614766555695025,0.9392817762009195
-4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,50.50835131832154,27.6160327649157,0.24517704419600284,0.9398098317623144
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,Ordinary stacking,mean of 3 paper-interpolation folds,52.78104072303404,29.22992187973258,0.2562362369680166,0.9339453223837864
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,Ordinary stacking,mean of 3 paper-interpolation folds,53.70150860367287,29.49605473740875,0.2607627505841082,0.93183361938535
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,Ordinary stacking,mean of 3 paper-interpolation folds,55.53351788134225,30.29806559630768,0.270072315921549,0.926475098384437
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,178,Ordinary stacking,mean of 3 paper-interpolation folds,51.1470700736003,28.739515164826,0.248604080177386,0.9381404880883496
+4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,50.44864158706249,28.77031643579266,0.2448422218813771,0.9398905219662878
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,4,PhysResStack,mean of 3 paper-interpolation folds,50.53854297689353,26.795666800230723,0.2454062431118853,0.9394277572012504
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,42,PhysResStack,mean of 3 paper-interpolation folds,50.98013200306004,27.180297940054064,0.2474628957763988,0.9386479610609197
 4,ESTM,Seebeck coefficient,seebeck_uV_per_K,,99,PhysResStack,mean of 3 paper-interpolation folds,54.11384284358045,28.047806601421613,0.2629789752900198,0.9304273221620601
@@ -124,11 +124,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 5,ESTM,ZT,ZT,,99,Direct,mean of 3 paper-interpolation folds,0.1124015126926825,0.06942814015233256,0.32366412355231106,0.8949335090291953
 5,ESTM,ZT,ZT,,178,Direct,mean of 3 paper-interpolation folds,0.11317497198091613,0.07007707951736687,0.325761838703461,0.8938524802456737
 5,ESTM,ZT,ZT,,2024,Direct,mean of 3 paper-interpolation folds,0.1137999425360538,0.06988331810559656,0.32744906420639247,0.8922949499097204
-5,ESTM,ZT,ZT,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.1104317692295785,0.0647881418097519,0.3180310561029075,0.8982187558452365
-5,ESTM,ZT,ZT,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.11174811445777395,0.06539454587086779,0.3215466593223458,0.8959433470062058
-5,ESTM,ZT,ZT,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.1092728034780051,0.06470758719946594,0.31461743920480845,0.9008308080158279
-5,ESTM,ZT,ZT,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.10887896947395707,0.06518658063770934,0.31334776840901896,0.901761500353798
-5,ESTM,ZT,ZT,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.1084464923191596,0.06350399866150501,0.31206021946545276,0.9021015636702621
+5,ESTM,ZT,ZT,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.1112556496743184,0.06691756348493361,0.3204248896512184,0.8966869177698341
+5,ESTM,ZT,ZT,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.1106019935778716,0.06574689947275229,0.3182585016947009,0.8981659292597118
+5,ESTM,ZT,ZT,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.1095975383459079,0.06618409920218669,0.3155752420569408,0.900116095212753
+5,ESTM,ZT,ZT,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.1098739323761364,0.0663001370008562,0.3162179068588387,0.8999601541427852
+5,ESTM,ZT,ZT,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.1114779533749421,0.0666985441947307,0.3207514377948857,0.8967886874341001
 5,ESTM,ZT,ZT,,4,PhysResStack,mean of 3 paper-interpolation folds,0.10389158723535286,0.060178004049069034,0.2992143135143374,0.9097105223412919
 5,ESTM,ZT,ZT,,42,PhysResStack,mean of 3 paper-interpolation folds,0.10469889704836323,0.05983703460583043,0.3012439674044007,0.9084693410059023
 5,ESTM,ZT,ZT,,99,PhysResStack,mean of 3 paper-interpolation folds,0.10415747322376817,0.05938076595959593,0.2998868628271196,0.9099743738891726
@@ -154,11 +154,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,Direct,mean of 3 paper-interpolation folds,0.30900672799066714,0.18003164388118229,0.3253559110212024,0.8939078046147136
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,Direct,mean of 3 paper-interpolation folds,0.31408906734609593,0.18060122660949252,0.32951127334407365,0.8913138676667117
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,Direct,mean of 3 paper-interpolation folds,0.30017098971036255,0.17857236873905902,0.31498619334373773,0.9007835449659978
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.31969007572091956,0.16752405983721017,0.3352303698069043,0.8861161626047237
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.2910849259549107,0.16117778565423138,0.3054558875216656,0.9066608603537526
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.2924233388362787,0.16223732945002278,0.30803215631501396,0.9047931794614236
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.2969944567646389,0.16195432423336628,0.3114491452951076,0.9028333800421892
-6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.28758155567377974,0.16076438753923397,0.3017875557229351,0.9089180443416334
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.3228518315117365,0.1693608409523314,0.3385037266666794,0.8835836972928074
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.2870801014303281,0.1602234123506367,0.3012507307935033,0.90922565651217
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.2929060823679767,0.1651695595551344,0.3084178430724346,0.904666060705006
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.3010899011933878,0.1642339532544512,0.3159206392219198,0.9001255304325196
+6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.2853539014829605,0.1612504673193933,0.2994351393789907,0.9103379155776976
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,4,PhysResStack,mean of 3 paper-interpolation folds,0.311952253795027,0.15766415257119085,0.32710914947618513,0.8915175697735441
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,42,PhysResStack,mean of 3 paper-interpolation folds,0.27793936431088356,0.15323450659732174,0.29162061754026675,0.9149179540413122
 6,ESTM,log10 electrical conductivity,log10_electrical_conductivity,,99,PhysResStack,mean of 3 paper-interpolation folds,0.27340448202770834,0.15040622998312436,0.28794024430113824,0.9167619971957115
@@ -184,11 +184,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,Direct,mean of 3 paper-interpolation folds,0.08743397832609444,0.058092322383744364,0.2264709037910654,0.9487019782649879
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,Direct,mean of 3 paper-interpolation folds,0.08613376216087863,0.0580061155293963,0.22321432461712765,0.9500975801207243
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,Direct,mean of 3 paper-interpolation folds,0.08534998659651237,0.05723365625657497,0.22106993805257125,0.9511215189412024
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.0809582415882141,0.05414409105813203,0.2098815473005561,0.9556762233763969
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.08318998852109981,0.0539762226522281,0.21554995033521304,0.9535164414232243
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.08525934121216076,0.05512069177923723,0.2208377626357706,0.9512220425277972
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.08375314813020292,0.05559962863577523,0.21708039371212498,0.9527553954029037
-7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.08226974983448941,0.0538923069475202,0.21309014331601037,0.9545809380915075
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,Ordinary stacking,mean of 3 paper-interpolation folds,0.0775622880767679,0.0521053019812073,0.2010974265526993,0.9592220280368624
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,Ordinary stacking,mean of 3 paper-interpolation folds,0.0822268972581512,0.0528559282924645,0.2130463380872933,0.9546024827019592
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,Ordinary stacking,mean of 3 paper-interpolation folds,0.0825914899299607,0.053148073254338,0.2139244070965095,0.9542312213150684
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,178,Ordinary stacking,mean of 3 paper-interpolation folds,0.0816127229085328,0.0532597975815353,0.2115662676529356,0.9551587635007448
+7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,2024,Ordinary stacking,mean of 3 paper-interpolation folds,0.080814619736798,0.0521207970728919,0.2092936412960378,0.9561661479964551
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,4,PhysResStack,mean of 3 paper-interpolation folds,0.07650009997355238,0.050602861925024334,0.19833369006075843,0.9603570045027466
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,42,PhysResStack,mean of 3 paper-interpolation folds,0.07877477562214309,0.0505820492241948,0.20409621420830248,0.9583377402559484
 7,ESTM,log10 thermal conductivity,log10_thermal_conductivity,,99,PhysResStack,mean of 3 paper-interpolation folds,0.0822123453413396,0.052774122320508966,0.21294416020325166,0.9546473022782865
@@ -364,11 +364,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 13,PV,FF,FF_fraction,,1025,Direct,single held-out split,0.0910158398455962,0.0596286486854853,0.7383055858964809,0.4549048618340542
 13,PV,FF,FF_fraction,,1790,Direct,single held-out split,0.0912713973215226,0.0600795169353081,0.7489013018253484,0.4391468401242985
 13,PV,FF,FF_fraction,,2024,Direct,single held-out split,0.0888081929921107,0.058783860010802,0.7408628978412638,0.4511221666022452
-13,PV,FF,FF_fraction,,243,Ordinary stacking,single held-out split,0.0892069115061379,0.0591423220715236,0.7390861553867756,0.4537516549155949
-13,PV,FF,FF_fraction,,938,Ordinary stacking,single held-out split,0.0897108407433052,0.0596085029324392,0.738074080585604,0.4552466515677154
-13,PV,FF,FF_fraction,,1025,Ordinary stacking,single held-out split,0.0904944013224265,0.0597460599317251,0.7340757619997739,0.4611327756444513
-13,PV,FF,FF_fraction,,1790,Ordinary stacking,single held-out split,0.091289902715348,0.0604958387471777,0.7490531425326598,0.4389193896619469
-13,PV,FF,FF_fraction,,2024,Ordinary stacking,single held-out split,0.0887861798215462,0.0593274046019476,0.7406792577875074,0.451394237083347
+13,PV,FF,FF_fraction,,243,Ordinary stacking,single held-out split,0.089307729714727,0.0593450977316609,0.7399214420357703,0.4525162596157063
+13,PV,FF,FF_fraction,,938,Ordinary stacking,single held-out split,0.08999920567174879,0.0599740607630601,0.7404465327627396,0.4517389321196372
+13,PV,FF,FF_fraction,,1025,Ordinary stacking,single held-out split,0.0907350466072705,0.0602521711405451,0.7360278371366,0.4582630229600185
+13,PV,FF,FF_fraction,,1790,Ordinary stacking,single held-out split,0.0915076655516661,0.0609845780641798,0.750839933097872,0.436239394865583
+13,PV,FF,FF_fraction,,2024,Ordinary stacking,single held-out split,0.0886906786932533,0.0592407806127539,0.7398825605429133,0.4525737966044622
 13,PV,FF,FF_fraction,,243,PhysResStack,single held-out split,0.0890348043082916,0.0590606102467986,0.7376602339528534,0.4558573792446215
 13,PV,FF,FF_fraction,,938,PhysResStack,single held-out split,0.0897473026215204,0.0597470277384736,0.7383740618032261,0.4548037448562058
 13,PV,FF,FF_fraction,,1025,PhysResStack,single held-out split,0.0906301267704178,0.0597915973944613,0.7351767446042337,0.4595151541931214
@@ -394,11 +394,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,Direct,single held-out split,3.554485149427685,1.964576069576469,0.6517346633723348,0.5752419285589495
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,Direct,single held-out split,3.5098891882732417,1.931163884161128,0.642937101092453,0.5866318840388329
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,Direct,single held-out split,3.54574939619743,1.944938884842284,0.6580487536343803,0.5669718378402386
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,Ordinary stacking,single held-out split,3.617631089386998,2.0049142411922847,0.6672305168537878,0.5548034373790272
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,Ordinary stacking,single held-out split,3.3234030785164848,1.99589078745352,0.6215882661719038,0.6136280273574065
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,Ordinary stacking,single held-out split,3.5531578848580536,1.996533683111716,0.6514913020158711,0.5755590833976651
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,Ordinary stacking,single held-out split,3.521185313256441,1.980786576335412,0.6450063111047067,0.5839668586350982
-14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,Ordinary stacking,single held-out split,3.5527238763503086,1.9888168650558329,0.6593431338792931,0.5652666318062325
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,Ordinary stacking,single held-out split,3.599528552857969,2.002873381284747,0.66389171184405,0.5592477949447768
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,Ordinary stacking,single held-out split,3.325691022169218,2.0093756767038,0.6220161886641813,0.6130958610396857
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,Ordinary stacking,single held-out split,3.542905576913349,2.001168858443518,0.6496114842121008,0.5780049195797516
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1790,Ordinary stacking,single held-out split,3.518943462689463,1.986235817719944,0.6445956517284988,0.584496445772712
+14,PV,JSC (mA/cm2),Jsc_mA_cm2,,2024,Ordinary stacking,single held-out split,3.554565256501022,1.989530685222701,0.6596848720501981,0.5648158695881138
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,243,PhysResStack,single held-out split,3.6191207722220025,1.998793815915597,0.6675052717481893,0.554436712188376
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,938,PhysResStack,single held-out split,3.318915366828244,1.989578263123012,0.6207489129964177,0.614670787013766
 14,PV,JSC (mA/cm2),Jsc_mA_cm2,,1025,PhysResStack,single held-out split,3.553811459705157,1.997419940632817,0.6516111386068424,0.5754029240434945
@@ -424,11 +424,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 15,PV,PCE_percent,PCE_percent,,1025,Direct,single held-out split,3.124359367045185,2.1957949442188265,0.5956855286924292,0.6451587509064212
 15,PV,PCE_percent,PCE_percent,,1790,Direct,single held-out split,3.086310551348108,2.1912115205561333,0.5927326673592852,0.648667985045147
 15,PV,PCE_percent,PCE_percent,,2024,Direct,single held-out split,3.045139683727528,2.158396436225781,0.5919152051149984,0.6496363899536695
-15,PV,PCE_percent,PCE_percent,,243,Ordinary stacking,single held-out split,3.0399825490611474,2.1460997723884976,0.5876044061373094,0.6547210618880202
-15,PV,PCE_percent,PCE_percent,,938,Ordinary stacking,single held-out split,3.043144382704394,2.164910404656686,0.5833965832075471,0.6596484267017595
-15,PV,PCE_percent,PCE_percent,,1025,Ordinary stacking,single held-out split,3.0898006802103986,2.192458463065788,0.5890966228657718,0.6529651689281426
-15,PV,PCE_percent,PCE_percent,,1790,Ordinary stacking,single held-out split,3.060866963149316,2.191296518890577,0.5878461707966908,0.6544368794796678
-15,PV,PCE_percent,PCE_percent,,2024,Ordinary stacking,single held-out split,3.007506347218254,2.150193339470324,0.5846000253818372,0.6582428103235554
+15,PV,PCE_percent,PCE_percent,,243,Ordinary stacking,single held-out split,3.078399599900701,2.183217302525176,0.5950301159826156,0.6459391610737151
+15,PV,PCE_percent,PCE_percent,,938,Ordinary stacking,single held-out split,3.083901604782038,2.208103339792424,0.5912100882900756,0.6504706315040409
+15,PV,PCE_percent,PCE_percent,,1025,Ordinary stacking,single held-out split,3.113142483919052,2.208861736031592,0.5935469350896098,0.6477020358457306
+15,PV,PCE_percent,PCE_percent,,1790,Ordinary stacking,single held-out split,3.090150973887136,2.209852389235502,0.5934702288773087,0.6477930874363149
+15,PV,PCE_percent,PCE_percent,,2024,Ordinary stacking,single held-out split,3.039105973421278,2.174754231960317,0.5907423706165965,0.6510234515582838
 15,PV,PCE_percent,PCE_percent,,243,PhysResStack,single held-out split,3.04086998701713,2.143933517668277,0.5877759408236746,0.6545194433888443
 15,PV,PCE_percent,PCE_percent,,938,PhysResStack,single held-out split,3.040230658390996,2.1573446330959185,0.582837997549073,0.6602998686129868
 15,PV,PCE_percent,PCE_percent,,1025,PhysResStack,single held-out split,3.086247026207152,2.180035070605903,0.5884190886851516,0.6537629760709357
@@ -454,11 +454,11 @@ Target order,Dataset,Target,Target code,Route,Outer seed,Method,Fold aggregation
 16,PV,VOC (V),Voc_V,,1025,Direct,single held-out split,0.1145287589367371,0.0610046992820735,0.6180904035633027,0.6179642530229538
 16,PV,VOC (V),Voc_V,,1790,Direct,single held-out split,0.1158270045877122,0.0619335764549559,0.6149055188305123,0.6218912029117786
 16,PV,VOC (V),Voc_V,,2024,Direct,single held-out split,0.1105452105237742,0.0601438146830969,0.615245577035915,0.621472879937744
-16,PV,VOC (V),Voc_V,,243,Ordinary stacking,single held-out split,0.1107303984755469,0.0616101787096792,0.6131100885253008,0.6240960193484977
-16,PV,VOC (V),Voc_V,,938,Ordinary stacking,single held-out split,0.1129013032179712,0.0628234045537687,0.6112983893449143,0.6263142791843135
-16,PV,VOC (V),Voc_V,,1025,Ordinary stacking,single held-out split,0.1148664563356063,0.0620867261727293,0.6199128935953879,0.6157080043541934
-16,PV,VOC (V),Voc_V,,1790,Ordinary stacking,single held-out split,0.116153341048659,0.0623452079495817,0.6166379826160177,0.6197575983952479
-16,PV,VOC (V),Voc_V,,2024,Ordinary stacking,single held-out split,0.110693878634461,0.0613797920649161,0.6160729977546682,0.6204540614375766
+16,PV,VOC (V),Voc_V,,243,Ordinary stacking,single held-out split,0.1106903122691206,0.0616934403744959,0.6128881326946614,0.6243681368020512
+16,PV,VOC (V),Voc_V,,938,Ordinary stacking,single held-out split,0.1137399998936626,0.0635920555146558,0.6158394700267668,0.6207417471571509
+16,PV,VOC (V),Voc_V,,1025,Ordinary stacking,single held-out split,0.1158930959668825,0.0622899938818772,0.6254534766760107,0.608807948513891
+16,PV,VOC (V),Voc_V,,1790,Ordinary stacking,single held-out split,0.116328094608362,0.06283339013749541,0.6175657190163432,0.6186125826958271
+16,PV,VOC (V),Voc_V,,2024,Ordinary stacking,single held-out split,0.1103768204489941,0.0609615399715711,0.6143083926184773,0.6226251987585028
 16,PV,VOC (V),Voc_V,,243,PhysResStack,single held-out split,0.1105843438529272,0.0615319258404732,0.6123013895245144,0.6250870083863488
 16,PV,VOC (V),Voc_V,,938,PhysResStack,single held-out split,0.1128208360082252,0.0624919270252316,0.6108627037123238,0.6268467572132698
 16,PV,VOC (V),Voc_V,,1025,PhysResStack,single held-out split,0.1149753502372586,0.0618041964906642,0.6205005737225695,0.614979038009962

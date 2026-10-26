@@ -7,9 +7,10 @@ RMSE_method) of every method over the five evaluated splits, each method
 measured against the Direct of its own run. With ``--same-splits`` (runs that
 keep the outer splits: another representation or tuned base models), it also
 reports the gain of the reported PhysicsGate over the Direct of the run. The
-fold-level MAE (mean and standard deviation over the 15 folds of the five outer
-seeds; log conductivities in natural-log units, as in the source study) and R2
-of Direct and PhysicsGate are written as well.
+MAE (log conductivities in natural-log units, as in the source study) and R2 of
+Direct and PhysicsGate are written as well: averaged over the three folds of
+each outer seed, as in Data S2, then mean and standard deviation over the five
+seeds.
 
     python scripts/analyze_estm_diagnostics.py --results-dir DIR --name NAME [--same-splits] [--reference CSV] [--out DIR]
 """
@@ -44,12 +45,13 @@ FOLD_TABLE = "tmp_estm_fixed_gate_multiseed_with_physresstack_and_ordinary_detai
 METHOD_NAMES = {"Direct": "Direct", "DirectAnchored_PhysicsGate_R2_R5_R6_tuned": "PhysicsGate"}
 
 
-def fold_errors(results_dir: Path) -> pd.DataFrame:
+def seed_errors(results_dir: Path) -> pd.DataFrame:
     folds = pd.read_csv(results_dir / FOLD_TABLE)
     folds = folds[folds["method"].isin(METHOD_NAMES)].assign(method=lambda f: f["method"].map(METHOD_NAMES))
     folds["MAE"] = folds["MAE"] * np.where(folds["target"].str.startswith("log10"), np.log(10), 1.0)
-    return folds.groupby(["target", "method"]).agg(MAE=("MAE", "mean"), MAE_sd=("MAE", "std"), R2=("R2", "mean"),
-                                                   folds=("MAE", "size")).reset_index()
+    seeds = folds.groupby(["target", "method", "outer_seed"])[["MAE", "R2"]].mean().reset_index()
+    return seeds.groupby(["target", "method"]).agg(MAE=("MAE", "mean"), MAE_sd=("MAE", "std"), R2=("R2", "mean"),
+                                                   R2_sd=("R2", "std"), seeds=("MAE", "size")).reset_index()
 
 
 def main() -> None:
@@ -75,8 +77,8 @@ def main() -> None:
     table.loc["Mean"] = table.mean()
     args.out.mkdir(parents=True, exist_ok=True)
     table.to_csv(args.out / f"estm_{args.name}_summary.csv")
-    errors = fold_errors(args.results_dir)
-    errors.to_csv(args.out / f"estm_{args.name}_fold_errors.csv", index=False)
+    errors = seed_errors(args.results_dir)
+    errors.to_csv(args.out / f"estm_{args.name}_errors.csv", index=False)
     print(errors.round(4).to_string(index=False))
     with pd.option_context("display.width", 250, "display.max_columns", 30):
         print(table.round(3).T.to_string())

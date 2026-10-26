@@ -1,14 +1,13 @@
 """Multitask baselines that predict all properties of a domain jointly.
 
-For every evaluated outer split, four models are trained on the training rows
-and inputs of Direct and evaluated on the same test rows:
+For every evaluated outer split, three models are trained on the training
+rows and inputs of Direct and evaluated on the same test rows:
 
 - ``mtl_mlp``: one MLP with shared hidden layers and one output per property;
 - ``stl_mlp``: the same architecture and optimizer with a single output, one
   model per property;
-- ``mtl_forest``: one multi-output random forest, whose splits are chosen on
-  the joint error of all properties;
-- ``stl_forest``: the same forest with a single output, one per property.
+- ``stl_forest``: a random forest per property, a single-task check of the
+  strength of Direct.
 
 Each property is standardized on the training rows, so that no property
 dominates the joint loss; MLP inputs are quantile-normalized. Hyperparameters are selected on training data only
@@ -21,7 +20,8 @@ in parallel worker processes (``--workers``), one core each.
 Inputs are those of Direct, shared by all properties: SSE descriptors and
 temperature; ESTM composition fractions and temperature; the 41 LMB features;
 the PV features with each categorical feature target-encoded for every
-property (on the training rows). For SSE, each endpoint has its own split; rows
+property, the encoding fitted on the rows a model is trained on (within each
+validation split and then on all training rows). For SSE, each endpoint has its own split; rows
 of the training set without all three properties are left out of the
 multitask fits.
 
@@ -101,7 +101,7 @@ def lmb_units(seeds):
 
 def pv_units(seeds):
     from physicsgate.submitted.pv.base_models import split_indices
-    from physicsgate.submitted.pv.common import CATEGORICAL_FEATURES, FEATURE_COLUMNS, TARGET_COLUMNS, encode_features_for_target
+    from physicsgate.submitted.pv.common import FEATURE_COLUMNS, TARGET_COLUMNS
     from physicsgate.submitted.pv.data import DEFAULT_OUTPUT
 
     data = pd.read_csv(DEFAULT_OUTPUT).dropna(subset=[*TARGET_COLUMNS, *FEATURE_COLUMNS]).reset_index(drop=True)
@@ -109,20 +109,28 @@ def pv_units(seeds):
     Y = data[targets].to_numpy(dtype=float)
     for seed in seeds:
         train_idx, test_idx = split_indices(len(data), test_size=0.30, random_state=seed)
-        X_train_raw, X_test_raw = data[FEATURE_COLUMNS].iloc[train_idx], data[FEATURE_COLUMNS].iloc[test_idx]
-        train_parts, test_parts = [], []
-        for k, target in enumerate(targets):  # every categorical feature encoded against every property
-            train_enc, test_enc, _, _ = encode_features_for_target(X_train_raw, X_test_raw, data[target].iloc[train_idx],
-                                                                   protocol="leakage_safe")
-            columns = FEATURE_COLUMNS if k == 0 else CATEGORICAL_FEATURES
-            train_parts.append(train_enc[columns].to_numpy(dtype=float))
-            test_parts.append(test_enc[columns].to_numpy(dtype=float))
-        yield (seed, 0, targets, np.hstack(train_parts), Y[train_idx], np.hstack(test_parts), Y[test_idx], None,
-               targets)
+        X_train_raw = data[FEATURE_COLUMNS].iloc[train_idx].reset_index(drop=True)
+        X_test_raw = data[FEATURE_COLUMNS].iloc[test_idx].reset_index(drop=True)
+        yield seed, 0, targets, X_train_raw, Y[train_idx], X_test_raw, Y[test_idx], None, targets
+
+
+def pv_encode(X_fit_raw, Y_fit, X_apply_raw):
+    """PV inputs: every categorical feature target-encoded against every property on the fitting rows."""
+    from physicsgate.submitted.pv.common import CATEGORICAL_FEATURES, FEATURE_COLUMNS, encode_features_for_target
+
+    fit_parts, apply_parts = [], []
+    for k in range(Y_fit.shape[1]):
+        fit_enc, apply_enc, _, _ = encode_features_for_target(
+            X_fit_raw, X_apply_raw, pd.Series(Y_fit[:, k], index=X_fit_raw.index), protocol="leakage_safe")
+        columns = FEATURE_COLUMNS if k == 0 else CATEGORICAL_FEATURES
+        fit_parts.append(fit_enc[columns].to_numpy(dtype=float))
+        apply_parts.append(apply_enc[columns].to_numpy(dtype=float))
+    return np.hstack(fit_parts), np.hstack(apply_parts)
 
 
 UNITS = {"SSE": sse_units, "ESTM": estm_units, "LMB": lmb_units, "PV": pv_units}
 GROUPED = {"SSE", "LMB"}
+ENCODERS = {"PV": pv_encode}
 
 
 # -------- models
@@ -164,42 +172,60 @@ def validation_splits(dataset, n, groups, seed):
     return [(train, valid)]
 
 
-def validation_error(kind, params, X, Y, train, valid, seed):
+def inputs(encode, X, Y_encode, fit, X_apply):
+    """Model inputs of the fitting rows and of X_apply, with any target encoding fitted on the fitting rows."""
+    if encode is None:
+        return X[fit], X_apply
+    return encode(X.iloc[fit].reset_index(drop=True), Y_encode[fit], X_apply.reset_index(drop=True))
+
+
+def validation_error(kind, params, X, Y, Y_encode, train, valid, seed, encode):
     """Validation MSE in units of the training standard deviation of each property, averaged over properties."""
-    prediction = fit_predict(kind, params, X[train], Y[train], X[valid], seed)
+    X_fit, X_valid = inputs(encode, X, Y_encode, train, X.iloc[valid] if encode else X[valid])
+    prediction = fit_predict(kind, params, X_fit, Y[train], X_valid, seed)
     return float(np.mean(((prediction - Y[valid]) / Y[train].std(axis=0)) ** 2))
+
+
+def final_prediction(kind, params, X, Y, Y_encode, X_test, seed, encode):
+    X_fit, X_apply = inputs(encode, X, Y_encode, np.arange(len(Y)), X_test)
+    return fit_predict(kind, params, X_fit, Y, X_apply, seed)
 
 
 def run_unit(dataset, unit, workers):
     seed, fold, endpoints, X_train, Y_train, X_test, Y_test, groups, targets = unit
     complete = np.all(np.isfinite(Y_train), axis=1)
+    encode = ENCODERS.get(dataset)
+
+    def rows_of(rows):
+        return X_train.iloc[np.flatnonzero(rows)].reset_index(drop=True) if encode else X_train[rows]
+
     group_rows = lambda rows: None if groups is None else groups[rows]  # noqa: E731
-    models = {}  # name -> (kind, X, Y, groups)
-    for kind in GRIDS:
-        # multitask: one model for all properties, trained on rows with every property
-        models[f"mtl_{kind}"] = (kind, X_train[complete], Y_train[complete], group_rows(complete))
-        # single task: one model per endpoint, on the rows where that property is known
+    models = {}  # name -> (kind, X, Y, groups, Y for the target encoding)
+    # multitask MLP: one model for all properties, trained on rows with every property
+    models["mtl_mlp"] = ("mlp", rows_of(complete), Y_train[complete], group_rows(complete), Y_train[complete])
+    for kind in GRIDS:  # single task: one model per endpoint, on the rows where that property is known
         for endpoint in endpoints:
             j = targets.index(endpoint)
             rows = np.isfinite(Y_train[:, j])
-            models[f"stl_{kind}_{endpoint}"] = (kind, X_train[rows], Y_train[rows][:, [j]], group_rows(rows))
+            models[f"stl_{kind}_{endpoint}"] = (kind, rows_of(rows), Y_train[rows][:, [j]], group_rows(rows),
+                                                Y_train[rows])
 
     # independent fits run in parallel: first the hyperparameter selection, then the final fits
     jobs = [(name, index, train, valid)
-            for name, (kind, X, Y, g) in models.items()
+            for name, (kind, X, Y, g, _) in models.items()
             for index in range(len(GRIDS[kind]))
             for train, valid in validation_splits(dataset, len(X), g, seed)]
     errors = Parallel(n_jobs=workers)(
         delayed(validation_error)(models[name][0], GRIDS[models[name][0]][index], models[name][1], models[name][2],
-                                  train, valid, seed)
+                                  models[name][4], train, valid, seed, encode)
         for name, index, train, valid in jobs)
     scores = pd.DataFrame([(name, index, e) for (name, index, _, _), e in zip(jobs, errors)],
                           columns=["name", "index", "error"]).groupby(["name", "index"])["error"].mean()
     best = {name: int(scores[name].idxmin()) for name in models}
-    finals = [(name, i) for name, (kind, _, _, _) in models.items() for i in range(INITS if kind == "mlp" else 1)]
+    finals = [(name, i) for name, (kind, *_) in models.items() for i in range(INITS if kind == "mlp" else 1)]
     predictions = Parallel(n_jobs=workers)(
-        delayed(fit_predict)(models[name][0], GRIDS[models[name][0]][best[name]], models[name][1], models[name][2],
-                             X_test, seed + 1000 * i)
+        delayed(final_prediction)(models[name][0], GRIDS[models[name][0]][best[name]], models[name][1],
+                                  models[name][2], models[name][4], X_test, seed + 1000 * i, encode)
         for name, i in finals)
 
     frames = []

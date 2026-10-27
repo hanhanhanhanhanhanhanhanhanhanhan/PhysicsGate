@@ -29,6 +29,7 @@ from scipy.stats import spearmanr
 
 ROOT = Path(__file__).resolve().parents[1]
 RECORDS = ROOT / "results" / "r3_audit" / "workdir" / "results" / "submitted" / "r3_audit"
+SPREADS = ["R3", "sd_mc_independent", "sd_mc_residual"]
 LABELS = {
     ("SSE", "E"): "SSE Ea", ("SSE", "P"): "SSE ln sigma0", ("SSE", "L"): "SSE ln(sigma T)",
     ("ESTM", "seebeck_uV_per_K"): "ESTM S", ("ESTM", "ZT"): "ESTM ZT",
@@ -55,6 +56,25 @@ def decile_ratio(r3: np.ndarray, error: np.ndarray) -> float:
     low, high = np.quantile(r3, [0.1, 0.9])
     bottom, top = error[r3 <= low], error[r3 >= high]
     return float(np.sqrt(np.mean(top ** 2)) / np.sqrt(np.mean(bottom ** 2)))
+
+
+def estm_in_units_of_sy(records: pd.DataFrame) -> pd.DataFrame:
+    """Express the ESTM propagated spreads in units of s_y, as in R3.
+
+    The records hold the propagated standard deviations before division by s_y,
+    the standard deviation of the outer-training target. Within one training set
+    this is a constant factor, which leaves every statistic of an SSE, LMB or PV
+    split unchanged. An ESTM split pools three folds, so the spreads of each fold
+    are divided by the s_y of its training set, the other two folds.
+    """
+    records = records.copy()
+    estm = records[records["dataset"].eq("ESTM")]
+    for _, unit in estm.groupby(["target", "seed"]):
+        for fold in unit["fold"].unique():
+            s_y = max(float(np.std(unit.loc[unit["fold"] != fold, "y_true"], ddof=0)), 1e-12)
+            rows = unit.index[unit["fold"] == fold]
+            records.loc[rows, SPREADS] = records.loc[rows, SPREADS] / s_y
+    return records
 
 
 def split_statistics(unit: pd.DataFrame) -> dict:
@@ -86,6 +106,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=ROOT / "results" / "revised" / "analyses")
     args = parser.parse_args()
     records = pd.concat([pd.read_csv(p) for p in sorted(args.records.glob("*.csv.gz"))], ignore_index=True)
+    records = estm_in_units_of_sy(records)
     rows = []
     for (dataset, target, seed), unit in records.groupby(["dataset", "target", "seed"]):  # ESTM folds pooled per split
         rows.append({"endpoint": LABELS[dataset, target], "dataset": dataset.split("-")[0], "seed": seed,

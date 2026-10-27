@@ -2579,7 +2579,7 @@ z
      </g>
     </g>
     <g id="text_26">
-     <text style="fill: #151515; font: 8.2px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="289.356409" y="107.755952" transform="rotate(-90 289.356409 107.755952)">Mean post hoc optimal weight</text>
+     <text style="fill: #151515; font: 8.2px 'Arial', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="289.356409" y="107.755952" transform="rotate(-90 289.356409 107.755952)">Mean sample-optimal weight</text>
     </g>
    </g>
    <g id="line2d_36">

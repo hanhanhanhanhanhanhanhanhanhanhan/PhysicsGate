@@ -1,7 +1,7 @@
 """Draw the Nature-style 50-seed ESTM/PV PhysicsGate mechanism figure.
 
 Panel a shows target-dependent gate allocation. Panel b compares predicted
-weights with a post hoc sample-optimal diagnostic. Panel c reports reliability
+weights with a sample-optimal diagnostic. Panel c reports reliability
 feature ablations. Panel d compares the adaptive gate with a train-OOF-tuned
 fixed scalar blend.
 """
@@ -348,7 +348,7 @@ def draw_calibration_panel(ax: plt.Axes, frame: pd.DataFrame) -> None:
     ax.set_yticks([0.3, 0.5, 0.7, 0.9])
     ax.set_aspect("equal", adjustable="box")
     ax.set_xlabel("Mean predicted weight")
-    ax.set_ylabel("Mean post hoc optimal weight")
+    ax.set_ylabel("Mean sample-optimal weight")
     centered_title(
         ax,
         "Gate-oracle alignment",

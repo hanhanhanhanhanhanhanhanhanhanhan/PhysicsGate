@@ -2,7 +2,7 @@
 
 Reads the unit-by-unit comparison written by ``scripts/compare_with_data_s2.py``
 for a run of ``scripts/reproduce_submitted.py --protocol row_split`` (the same
-pipelines with row-level instead of material- or system-grouped outer splits)
+pipelines with row-level instead of material-grouped outer splits)
 and reports, per endpoint, the Direct R2 and RMSE under both splits and the
 paired gain G = log2(RMSE_Direct / RMSE_method) of every method, averaged over
 the five evaluated splits. Row-level splits put rows of the same material or

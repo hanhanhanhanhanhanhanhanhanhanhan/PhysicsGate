@@ -1,5 +1,5 @@
 dataset,doi,source_url,expected_filename
-SSE,10.26434/chemrxiv.15005550/v1,https://doi.org/10.26434/chemrxiv.15005550/v1,SSE.xlsx
+SSE,10.1002/anie.4940262,https://doi.org/10.1002/anie.4940262,SSE.xlsx
 ESTM,10.1038/s41524-022-00897-2,https://doi.org/10.1038/s41524-022-00897-2,estm.csv
 LMB,10.1016/j.ensm.2022.12.047,https://doi.org/10.1016/j.ensm.2022.12.047,Energy density.xlsx
 PV,10.1063/5.0177271,https://doi.org/10.1063/5.0177271,Perovskite_database_content_all_data.csv

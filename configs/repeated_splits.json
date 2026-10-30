@@ -109,7 +109,7 @@
     2926,
     3000
    ],
-   "selection_rule": "five frozen evaluated seeds plus 45 predeclared stratified candidates in [0,3000]"
+   "selection_rule": "50 randomly generated outer splits"
   },
   "LMB": {
    "split_ids": [
